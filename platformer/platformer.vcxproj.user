@@ -6,8 +6,7 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LocalDebuggerWorkingDirectory>
-    </LocalDebuggerWorkingDirectory>
+    <LocalDebuggerWorkingDirectory>../data</LocalDebuggerWorkingDirectory>
     <LocalDebuggerEnvironment>PATH=../data;%PATH%;</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
