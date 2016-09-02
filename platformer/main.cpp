@@ -1,11 +1,46 @@
+#include "SDL_events.h"
+#include "SDL_main.h"
+#include "SDL.h"
+
 #include "core/oxygine.h"
+
 #include "Stage.h"
 #include "DebugActor.h"
 #include "ColorRectSprite.h"
 #include "KeyEvent.h"
-#include "SDL_events.h"
+
 
 using namespace oxygine;
+
+spActor createAndSetupActor()
+{
+   oxygine::intrusive_ptr<ColorRectSprite> actor = new ColorRectSprite();
+   actor->setColor(Color::Silver);
+   actor->setPosition(50, 50);
+   actor->setSize(100, 100);
+   getStage()->addEventListener(KeyEvent::KEY_DOWN, [actor](Event* event)
+   {
+      KeyEvent* keyEvent = dynamic_cast<KeyEvent*>(event);
+      if (!keyEvent) return;
+
+      switch (keyEvent->data->keysym.scancode)
+      {
+      case SDL_SCANCODE_LEFT:
+         actor->setPosition(actor->getPosition() - Vector2{ 10, 0 });
+         break;
+      case SDL_SCANCODE_RIGHT:
+         actor->setPosition(actor->getPosition() + Vector2{ 10, 0 });
+         break;
+      case SDL_SCANCODE_DOWN:
+         actor->setPosition(actor->getPosition() + Vector2{ 0, 10 });
+         break;
+      case SDL_SCANCODE_UP:
+         actor->setPosition(actor->getPosition() - Vector2{ 0, 10 });
+         break;
+      }
+   });
+   return actor;
+}
 
 int mainloop()
 {
@@ -43,33 +78,7 @@ void run()
    Point size = core::getDisplaySize();
    getStage()->setSize(size);
 
-
-   oxygine::intrusive_ptr<ColorRectSprite> actor = new ColorRectSprite();
-   actor->setColor(Color::Silver);
-   actor->setPosition(50, 50);
-   actor->setSize(100, 100);
-   getStage()->addEventListener(KeyEvent::KEY_DOWN, [actor](Event* event)
-   {
-      KeyEvent* keyEvent = dynamic_cast<KeyEvent*>(event);
-      if (!keyEvent) return;
-
-      switch (keyEvent->data->keysym.scancode)
-      {
-      case SDL_SCANCODE_LEFT:
-         actor->setPosition(actor->getPosition() - Vector2{ 10, 0 });
-         break;
-      case SDL_SCANCODE_RIGHT:
-         actor->setPosition(actor->getPosition() + Vector2{ 10, 0 });
-         break;
-      case SDL_SCANCODE_DOWN:
-         actor->setPosition(actor->getPosition() + Vector2{ 0, 10 });
-         break;
-      case SDL_SCANCODE_UP:
-         actor->setPosition(actor->getPosition() - Vector2{ 0, 10 });
-         break;
-      }
-   });
-   getStage()->addChild(actor);
+   getStage()->addChild(createAndSetupActor());
 
    DebugActor::show();
 
@@ -89,12 +98,6 @@ void run()
    //end
 }
 
-
-#ifdef OXYGINE_SDL
-
-#include "SDL_main.h"
-#include "SDL.h"
-
 extern "C"
 {
    void one(void* param) { mainloop(); }
@@ -107,4 +110,3 @@ extern "C"
       return 0;
    }
 };
-#endif
