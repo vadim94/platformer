@@ -9,33 +9,31 @@
 #include "ColorRectSprite.h"
 #include "KeyEvent.h"
 
+#include "GreySquareActor.h"
 
 using namespace oxygine;
 
 spActor createAndSetupActor()
 {
-   oxygine::intrusive_ptr<ColorRectSprite> actor = new ColorRectSprite();
-   actor->setColor(Color::Silver);
-   actor->setPosition(50, 50);
-   actor->setSize(100, 100);
+
+   spGreySquareActor actor = new GreySquareActor(PhysicalObject::Point{50 * pixel, 50 * pixel});
    getStage()->addEventListener(KeyEvent::KEY_DOWN, [actor](Event* event)
    {
+      const PhysicalObject::AccelerationVector horizontalAcceleration{ 500 * pixelPerSquareSecond , Acceleration(0) };
       KeyEvent* keyEvent = dynamic_cast<KeyEvent*>(event);
       if (!keyEvent) return;
+
 
       switch (keyEvent->data->keysym.scancode)
       {
       case SDL_SCANCODE_LEFT:
-         actor->setPosition(actor->getPosition() - Vector2{ 10, 0 });
+         actor->SetAcceleration(actor->GetAcceleration() - horizontalAcceleration);
          break;
       case SDL_SCANCODE_RIGHT:
-         actor->setPosition(actor->getPosition() + Vector2{ 10, 0 });
+         actor->SetAcceleration(actor->GetAcceleration() + horizontalAcceleration);
          break;
-      case SDL_SCANCODE_DOWN:
-         actor->setPosition(actor->getPosition() + Vector2{ 0, 10 });
-         break;
-      case SDL_SCANCODE_UP:
-         actor->setPosition(actor->getPosition() - Vector2{ 0, 10 });
+      case SDL_SCANCODE_SPACE:
+         actor->Jump();
          break;
       }
    });
@@ -44,6 +42,7 @@ spActor createAndSetupActor()
 
 int mainloop()
 {
+   PhysicalObject().GetLocation();
    bool done = core::update();
 
    getStage()->update();
