@@ -22,9 +22,11 @@ namespace
    static const PhysicalObject::Point oneUnitHorizontalyAndVertically{ pixel, pixel };
    static const PhysicalObject::Point someLocation = oneUnitHorizontalyAndVertically;
    static const PhysicalObject::Point zeroPoint{ Distance(0), Distance(0) };
+   static const PhysicalObject::Point oneUnitHorisontallyPoint{ Distance(1), Distance(0) };
 
    static const PhysicalObject::SpeedVector zeroSpeed{ Speed(0), Speed(0) };
-   static const PhysicalObject::SpeedVector oneUnitPerSecondHorizontall{ pixelPerSecond, Speed(0) };
+   static const PhysicalObject::SpeedVector oneUnitPerSecondHorizontally{ pixelPerSecond, Speed(0) };
+   static const PhysicalObject::AccelerationVector zeroAccelerationVector{ Acceleration(0), Acceleration(0) };
    static const PhysicalObject::AccelerationVector oneUnitPerSecondSquaredVertically{ Acceleration(0), pixelPerSquareSecond };
    static const PhysicalObject::AccelerationVector oneUnitPerSecondSquaredHorizontally{ pixelPerSquareSecond, Acceleration(0)};
 }
@@ -35,68 +37,68 @@ namespace PlatformerTest
    {
    public:
 
-      //TEST_METHOD(ConstructedWithZeroSpeedAndZeroPointLocation)
-      //{
-      //   PhysicalObject object;
+      TEST_METHOD(ConstructedWithZeroSpeedAndZeroPointLocation)
+      {
+         PhysicalObject object;
 
-      //   Assert::IsTrue(zeroPoint == object.GetLocation());
-      //   Assert::IsTrue(zeroSpeed == object.GetSpeed());
-      //}
+         Assert::IsTrue(zeroPoint == object.GetLocation());
+         Assert::IsTrue(zeroSpeed == object.GetSpeed());
+      }
 
-      //TEST_METHOD(ConstructedWithLocation)
-      //{
-      //   PhysicalObject object(someLocation);
+      TEST_METHOD(ConstructedWithLocation)
+      {
+         PhysicalObject object(someLocation);
 
-      //   Assert::IsTrue(someLocation == object.GetLocation());
-      //}
+         Assert::IsTrue(someLocation == object.GetLocation());
+      }
 
-      //TEST_METHOD(SetSpeed)
-      //{
-      //   PhysicalObject object;
-      //   object.SetSpeed(oneUnitPerSecondHorizontally);
+      TEST_METHOD(SetSpeed)
+      {
+         PhysicalObject object;
+         object.SetSpeed(oneUnitPerSecondHorizontally);
 
-      //   Assert::IsTrue(oneUnitPerSecondHorizontally == object.GetSpeed());
-      //}
+         Assert::IsTrue(oneUnitPerSecondHorizontally == object.GetSpeed());
+      }
 
-      //TEST_METHOD(SetGravity)
-      //{
-      //   PhysicalObject::SetGravity(oneUnitPerSecondSquaredVertically);
+      TEST_METHOD(SetGravity)
+      {
+         PhysicalObject::SetGravity(oneUnitPerSecondSquaredVertically);
 
-      //   Assert::IsTrue(PhysicalObject::GetGravity() == oneUnitPerSecondSquaredVertically);
-      //}
+         Assert::IsTrue(PhysicalObject::GetGravity() == oneUnitPerSecondSquaredVertically);
+      }
 
-      //TEST_METHOD(MovesWhenNonZeroSpeed)
-      //{
-      //   PhysicalObject::SetGravity(zeroVector);
-      //   PhysicalObject object;
-      //   object.SetSpeed(oneUnitPerSecondHorizontally);
+      TEST_METHOD(MovesWhenNonZeroSpeed)
+      {
+         PhysicalObject::SetGravity(zeroAccelerationVector);
+         PhysicalObject object;
+         object.SetSpeed(oneUnitPerSecondHorizontally);
 
-      //   object.Update(oneSecondUpdateStruct);
+         object.Update(oneSecondUpdateStruct);
 
-      //   Assert::IsTrue(oneUnitHorizontaly == object.GetLocation());
-      //}
+         Assert::IsTrue(oneUnitHorisontallyPoint == object.GetLocation());
+      }
 
-      //TEST_METHOD(MovesWithGravity)
-      //{
-      //   PhysicalObject::SetGravity(oneUnitPerSecondSquaredVertically);
-      //   PhysicalObject object;
-      //   object.SetSpeed(oneUnitPerSecondHorizontally);
+      TEST_METHOD(MovesWithGravity)
+      {
+         PhysicalObject::SetGravity(oneUnitPerSecondSquaredVertically);
+         PhysicalObject object;
+         object.SetSpeed(oneUnitPerSecondHorizontally);
 
-      //   object.Update(oneSecondUpdateStruct);
+         object.Update(oneSecondUpdateStruct);
 
-      //   Assert::IsTrue(oneUnitHorizontalyAndVertically == object.GetLocation());
-      //}
+         Assert::IsTrue(oneUnitHorizontalyAndVertically == object.GetLocation());
+      }
 
-      //TEST_METHOD(MovesWithGravityAndCustomAcceleration)
-      //{
-      //   PhysicalObject::SetGravity(oneUnitPerSecondSquaredVertically);
-      //   PhysicalObject object;
-      //   object.SetAcceleration(oneUnitPerSecondSquaredHorizontally);
+      TEST_METHOD(MovesWithGravityAndCustomAcceleration)
+      {
+         PhysicalObject::SetGravity(oneUnitPerSecondSquaredVertically);
+         PhysicalObject object;
+         object.SetAcceleration(oneUnitPerSecondSquaredHorizontally);
 
-      //   object.Update(oneSecondUpdateStruct);
+         object.Update(oneSecondUpdateStruct);
 
-      //   Assert::IsTrue(oneUnitHorizontalyAndVertically == object.GetLocation());
-      //}
+         Assert::IsTrue(oneUnitHorizontalyAndVertically == object.GetLocation());
+      }
 
    };
 }

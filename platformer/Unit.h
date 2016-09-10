@@ -91,6 +91,12 @@ Unit<ValueType, -Distance, -Time> operator/(Value value, const Unit<ValueType, D
    return Unit<ValueType, -Distance, -Time>(value / lhs.Value());
 }
 
+template<class ValueType, int Distance, int Time>
+bool operator==(const Unit<ValueType, Distance, Time>& lhs, const Unit<ValueType, Distance, Time>& rhs)
+{
+	return lhs.AreEqual(rhs, std::numeric_limits<ValueType>::epsilon());
+}
+
 template<int Distance, int Time>
 using DUnit = Unit < double, Distance, Time >;
 
