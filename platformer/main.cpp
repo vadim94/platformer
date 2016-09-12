@@ -8,21 +8,23 @@
 #include "DebugActor.h"
 #include "ColorRectSprite.h"
 #include "KeyEvent.h"
+#include "initActor.h"
+#include "textField.h"
+#include "clock.h"
 
 #include "GreySquareActor.h"
+#include "MenuActor.h"
 
 using namespace oxygine;
 
-spActor createAndSetupActor()
+void createAndAddSquare()
 {
-
    spGreySquareActor actor = new GreySquareActor(PhysicalObject::Point{50 * pixel, 50 * pixel});
    getStage()->addEventListener(KeyEvent::KEY_DOWN, [actor](Event* event)
    {
       const PhysicalObject::AccelerationVector horizontalAcceleration{ 500 * pixelPerSquareSecond , Acceleration(0) };
       KeyEvent* keyEvent = dynamic_cast<KeyEvent*>(event);
       if (!keyEvent) return;
-
 
       switch (keyEvent->data->keysym.scancode)
       {
@@ -37,12 +39,22 @@ spActor createAndSetupActor()
          break;
       }
    });
-   return actor;
+   getStage()->addChild(actor);
+}
+
+void createAndAddMenu()
+{
+	spMenuActor menu = new MenuActor();
+	getStage()->addEventListener(KeyEvent::KEY_DOWN, [menu](Event* event)
+	{
+		if(dynamic_cast<KeyEvent*>(event)->data->keysym.scancode == SDL_SCANCODE_ESCAPE)
+			menu->Toggle();
+	});
+	getStage()->addChild(menu);
 }
 
 int mainloop()
 {
-   PhysicalObject().GetLocation();
    bool done = core::update();
 
    getStage()->update();
@@ -72,14 +84,13 @@ void run()
 
    core::init(&desc);
 
-
    Stage::instance = new Stage(true);
    Point size = core::getDisplaySize();
    getStage()->setSize(size);
-
-   getStage()->addChild(createAndSetupActor());
-
    DebugActor::show();
+
+   createAndAddSquare();
+   createAndAddMenu();
 
    // This is the main game loop.
    while (1)

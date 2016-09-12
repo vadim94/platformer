@@ -120,12 +120,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ButtonAlignerActor.cpp" />
     <ClCompile Include="GreySquareActor.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuActor.cpp" />
     <ClCompile Include="PhysicalObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ButtonAlignerActor.h" />
     <ClInclude Include="GreySquareActor.h" />
+    <ClInclude Include="MenuActor.h" />
     <ClInclude Include="PhysicalObject.h" />
     <ClInclude Include="Unit.h" />
   </ItemGroup>
