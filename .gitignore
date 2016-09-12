@@ -9,3 +9,7 @@ platformer/ipch/
 platformer/Release/
 PlatformerTest/Debug/
 PlatformerTest/Release/
+platformer/Debug_v140_xp/
+platformer/platformer.VC.db
+platformer/platformer.VC.VC.opendb
+platformer/.vs/
