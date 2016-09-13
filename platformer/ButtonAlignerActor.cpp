@@ -43,8 +43,8 @@ void ButtonAlignerActor::alignButtons()
 {
 	if (buttons_.size() == 0) return;
 
-	const int heightPerButton = buttons_[0]->getSize().y + buttonPadding_;
-	const int buttonBlockWidth = buttons_[0]->getSize().x;
+	const int heightPerButton = buttons_[0]->getHeight() + buttonPadding_;
+	const int buttonBlockWidth = buttons_[0]->getWidth();
 	const int buttonBlockHeight = heightPerButton * buttons_.size();
 	
 	const oxygine::Vector2 buttonBlockSize(buttonBlockWidth, buttonBlockHeight);

@@ -24,10 +24,16 @@
     <ClCompile Include="GreySquareActor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MenuActor.cpp">
+    <ClCompile Include="ButtonAlignerActor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ButtonAlignerActor.cpp">
+    <ClCompile Include="MainMenuStage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseMenuActor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,10 +47,16 @@
     <ClInclude Include="Unit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MenuActor.h">
+    <ClInclude Include="ButtonAlignerActor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ButtonAlignerActor.h">
+    <ClInclude Include="MainMenuStage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseMenuActor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

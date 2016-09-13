@@ -10,15 +10,15 @@
 
 
 
-DECLARE_SMART(MenuActor, spMenuActor);
-class MenuActor : public oxygine::ColorRectSprite
+DECLARE_SMART(PauseMenuActor, spPauseMenuActor);
+class PauseMenuActor : public oxygine::ColorRectSprite
 {
 public:
-	MenuActor();
+	PauseMenuActor();
 	void Toggle();
+	bool IsShown() const;
 
 private:
-	bool isShown() const;
 	void show();
 	void hide();
 	void addButtons();

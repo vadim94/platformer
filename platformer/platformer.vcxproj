@@ -121,15 +121,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ButtonAlignerActor.cpp" />
+    <ClCompile Include="GameStage.cpp" />
     <ClCompile Include="GreySquareActor.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MenuActor.cpp" />
+    <ClCompile Include="MainMenuStage.cpp" />
+    <ClCompile Include="PauseMenuActor.cpp" />
     <ClCompile Include="PhysicalObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButtonAlignerActor.h" />
+    <ClInclude Include="GameStage.h" />
     <ClInclude Include="GreySquareActor.h" />
-    <ClInclude Include="MenuActor.h" />
+    <ClInclude Include="MainMenuStage.h" />
+    <ClInclude Include="PauseMenuActor.h" />
     <ClInclude Include="PhysicalObject.h" />
     <ClInclude Include="Unit.h" />
   </ItemGroup>
