@@ -1,9 +1,12 @@
 #include "core/oxygine.h"
 
+#include "SDL_main.h"
+
 #include "Stage.h"
 #include "DebugActor.h"
+
 #include "MainMenuStage.h"
-#include "SDL_main.h"
+#include "ResourceSingleton.h"
 
 using namespace oxygine;
 
@@ -27,20 +30,31 @@ int mainloop()
    return done ? 1 : 0;
 }
 
+void initCore()
+{
+	core::init_desc desc;
+	desc.title = "Oxygine Application";
+
+	desc.w = 960;
+	desc.h = 640;
+
+	core::init(&desc);
+}
+
+void init()
+{
+	initCore();
+	ResourceSingleton::Initialize();
+	DebugActor::initialize();
+}
+
 // Application entry point
 void run()
 {
    ObjectBase::__startTracingLeaks();
 
-   core::init_desc desc;
-   desc.title = "Oxygine Application";
-
-   desc.w = 960;
-   desc.h = 640;
-
-   core::init(&desc);
-
-   DebugActor::initialize();
+   init();
+   
    Stage::instance = new MainMenuStage(core::getDisplaySize());
    DebugActor::show();
 

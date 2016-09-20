@@ -2,6 +2,8 @@
 
 #include "Stage.h"
 
+#include "ResourceSingleton.h"
+
 const int ButtonAlignerActor::buttonPadding_ = 10;
 
 oxygine::spButton ButtonAlignerActor::AddButton(const std::string& text)
@@ -15,6 +17,7 @@ oxygine::spButton ButtonAlignerActor::AddButton(const std::string& text)
 oxygine::spButton ButtonAlignerActor::createButton(const std::string& text)
 {
 	oxygine::spButton button = new oxygine::Button();
+	button->setResAnim(ResourceSingleton::GetRes().getResAnim("button"));
 
 	oxygine::spTextField textField = createText(text);
 	textField->setSize(button->getSize());
@@ -32,6 +35,7 @@ oxygine::spTextField ButtonAlignerActor::createText(const std::string& text)
 	style.hAlign = oxygine::TextStyle::HALIGN_CENTER;
 	style.multiline = true;
 	style.fontSize = 20;
+	style.font = ResourceSingleton::GetRes().getResFont("main");
 
 	textField->setStyle(style);
 	textField->setText(text);
@@ -43,9 +47,9 @@ void ButtonAlignerActor::alignButtons()
 {
 	if (buttons_.size() == 0) return;
 
-	const int heightPerButton = buttons_[0]->getHeight() + buttonPadding_;
-	const int buttonBlockWidth = buttons_[0]->getWidth();
-	const int buttonBlockHeight = heightPerButton * buttons_.size();
+	const int heightPerButton = static_cast<int>(buttons_[0]->getHeight() + buttonPadding_);
+	const int buttonBlockWidth = static_cast<int>(buttons_[0]->getWidth());
+	const int buttonBlockHeight = static_cast<int>(heightPerButton * buttons_.size());
 	
 	const oxygine::Vector2 buttonBlockSize(buttonBlockWidth, buttonBlockHeight);
 	setSize(buttonBlockSize);

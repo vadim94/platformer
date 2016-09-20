@@ -61,9 +61,12 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <CustomBuildBeforeTargets>
+    </CustomBuildBeforeTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <CustomBuildBeforeTargets>Clean</CustomBuildBeforeTargets>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -83,8 +86,24 @@
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreBuildEvent>
-      <Command>call copy_libs_.bat</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
+    <CustomBuildStep>
+      <Command>call copy_libs_.bat</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>
+      </Message>
+      <Outputs>
+      </Outputs>
+      <Inputs>
+      </Inputs>
+    </CustomBuildStep>
+    <PostBuildEvent>
+      <Command>
+call copy_libs_.bat</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -111,8 +130,13 @@
       <Command>call copy_libs_.bat</Command>
     </PreBuildEvent>
     <CustomBuildStep>
-      <Command>call copy_libs_.bat</Command>
+      <Command>call clean_data.bat</Command>
+      <Message>clean_data</Message>
     </CustomBuildStep>
+    <PostBuildEvent>
+      <Command>
+call copy_libs_.bat</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ProjectReference Include="../../oxygine-framework/\oxygine\SDL\win32\oxygine.vcxproj">
@@ -127,6 +151,7 @@
     <ClCompile Include="MainMenuStage.cpp" />
     <ClCompile Include="PauseMenuActor.cpp" />
     <ClCompile Include="PhysicalObject.cpp" />
+    <ClCompile Include="ResourceSingleton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButtonAlignerActor.h" />
@@ -135,6 +160,7 @@
     <ClInclude Include="MainMenuStage.h" />
     <ClInclude Include="PauseMenuActor.h" />
     <ClInclude Include="PhysicalObject.h" />
+    <ClInclude Include="ResourceSingleton.h" />
     <ClInclude Include="Unit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
