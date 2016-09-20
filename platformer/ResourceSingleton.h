@@ -9,10 +9,11 @@ class ResourceSingleton
 public:
    static void Initialize();
    static const oxygine::Resources& GetRes();
+   static void UnInitialize();
 
 private:
    ResourceSingleton() = default;
-
+   
 private:
    static ResourceSingleton singleton;
 

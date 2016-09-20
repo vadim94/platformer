@@ -11,6 +11,11 @@ void ResourceSingleton::Initialize()
 	}
 }
 
+void ResourceSingleton::UnInitialize()
+{
+	singleton.res_->free();
+}
+
 const oxygine::Resources& ResourceSingleton::GetRes()
 {
 	Initialize();

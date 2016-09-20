@@ -48,6 +48,12 @@ void init()
 	DebugActor::initialize();
 }
 
+void deinit()
+{
+	ResourceSingleton::UnInitialize();
+	core::release();
+}
+
 // Application entry point
 void run()
 {
@@ -67,7 +73,7 @@ void run()
    }
    ObjectBase::dumpCreatedObjects();
 
-   core::release();
+   deinit();
    ObjectBase::dumpCreatedObjects();
 
    ObjectBase::__stopTracingLeaks();

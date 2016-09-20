@@ -4,4 +4,6 @@
 	<atlas>
 		<image file="button.png" cols="3"/>
 	</atlas>
+	<set path = "resources" />
+	<font file="comic_sans.fnt" />
 </resources>
