@@ -26,6 +26,12 @@ void PhysicalObject::SetAcceleration(const AccelerationVector& newAcceleration)
 {
    acceleration_ = newAcceleration;
 }
+
+void PhysicalObject::SetLocation(const Point& newLocation)
+{
+	location_ = newLocation;
+}
+
 const PhysicalObject::AccelerationVector& PhysicalObject::GetAcceleration()
 {
    return acceleration_;

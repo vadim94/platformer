@@ -145,8 +145,10 @@ call copy_libs_.bat</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ButtonAlignerActor.cpp" />
+    <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameStage.cpp" />
     <ClCompile Include="GreySquareActor.cpp" />
+    <ClCompile Include="GroundActor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuStage.cpp" />
     <ClCompile Include="PauseMenuActor.cpp" />
@@ -155,8 +157,10 @@ call copy_libs_.bat</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButtonAlignerActor.h" />
+    <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameStage.h" />
     <ClInclude Include="GreySquareActor.h" />
+    <ClInclude Include="GroundActor.h" />
     <ClInclude Include="MainMenuStage.h" />
     <ClInclude Include="PauseMenuActor.h" />
     <ClInclude Include="PhysicalObject.h" />

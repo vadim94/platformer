@@ -26,7 +26,7 @@ public:
 
    void Update(const oxygine::UpdateState& updateState);
 
-
+   void SetLocation(const Point& newLocation);
 
    static const AccelerationVector& GetGravity();
    static void SetGravity(const AccelerationVector& newGravity);

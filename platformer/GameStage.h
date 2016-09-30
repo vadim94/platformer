@@ -10,6 +10,7 @@ public:
 
 private:
 	void createAndAddSquare();
+	void createAndAddGround();
 	void createAndAddMenu();
 	bool isPaused();
 
