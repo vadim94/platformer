@@ -16,46 +16,36 @@ enum DIRECTION
 {
 	NOT_CHANGED,
 	UP,
-	UP_RIGHT,
 	RIGHT,
-	DOWN_RIGHT,
 	DOWN,
-	DOWN_LEFT,
-	LEFT,
-	UP_LEFT
+	LEFT
 };
 
 void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
 											  const PhysicalObject::Point& oldLocation,
 											  const PhysicalObject::Point& newLocation)
 {
-	DIRECTION direction;
+	DIRECTION horisontalDirection;
+	DIRECTION verticalDirection;
+	
 	if (oldLocation.x.Value() < newLocation.x.Value()) {
-		if (oldLocation.y.Value() < newLocation.y.Value()) {
-			direction = DOWN_RIGHT;
-		} else if (oldLocation.y.Value() > newLocation.y.Value()) {
-			direction = UP_RIGHT;
-		} else {
-			direction = RIGHT;
-		}
+		horisontalDirection = RIGHT;
 	}
 	else if (oldLocation.x.Value() > newLocation.x.Value()) {
-		if (oldLocation.y.Value() < newLocation.y.Value()) {
-			direction = DOWN_LEFT;
-		} else if (oldLocation.y.Value() > newLocation.y.Value()) {
-			direction = UP_LEFT;
-		} else {
-			direction = LEFT;
-		}
-	} else {
-		if (oldLocation.y.Value() < newLocation.y.Value()) {
-			direction = DOWN;
-		} else if (oldLocation.y.Value() > newLocation.y.Value()) {
-			direction = UP;
-		} else {
-			direction = NOT_CHANGED;
-			return;
-		}
+		horisontalDirection = LEFT;
+	}
+	else {
+		horisontalDirection = NOT_CHANGED;
+	}
+
+	if (oldLocation.y.Value() < newLocation.y.Value()) {
+		verticalDirection = DOWN;
+	}
+	else if (oldLocation.y.Value() > newLocation.y.Value()) {
+		verticalDirection = UP;
+	}
+	else {
+		verticalDirection = NOT_CHANGED;
 	}
 
 	Distance newX(actor->GetLocation().x.Value()), newY(actor->GetLocation().y.Value());
@@ -78,10 +68,8 @@ void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
 		double yBarrierLowerBound = barrier->GetLocation().y.Value() + barrier->getSize().y;
 
 		// Set Y value
-		switch (direction)
+		switch (verticalDirection)
 		{
-		case UP_RIGHT:
-		case UP_LEFT:
 		case UP:
 			if (yBarrierLowerBound > yActorNewUpperBound &&
 				yBarrierLowerBound <= yActorOldUpperBound &&
@@ -97,8 +85,6 @@ void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
 				}
 			}
 			break;
-		case DOWN_LEFT:
-		case DOWN_RIGHT:
 		case DOWN:
 			if (yBarrierUpperBound < yActorNewLowerBound &&
 				yBarrierUpperBound >= yActorOldLowerBound &&
@@ -119,10 +105,8 @@ void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
 		}
 
 		// Set X value
-		switch (direction)
+		switch (horisontalDirection)
 		{
-		case DOWN_RIGHT:
-		case UP_RIGHT:
 		case RIGHT:
 			if (xBarrierLeftBound < xActorRightBound &&
 				xBarrierLeftBound >= xActorOldRightBound &&
@@ -140,8 +124,6 @@ void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
 				}
 			}
 			break;
-		case UP_LEFT:
-		case DOWN_LEFT:
 		case LEFT:
 			if (xBarrierRightBound > xActorLeftBound &&
 				xBarrierRightBound <= xActorOldLeftBound &&
