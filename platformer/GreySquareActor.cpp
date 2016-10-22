@@ -12,8 +12,11 @@ GreySquareActor::GreySquareActor(const PhysicalObject::Point& startPoint) : Phys
 
 void GreySquareActor::doUpdate(const oxygine::UpdateState& us)
 {
+   Point oldLocation = GetLocation();
    Update(us);
-   GameEngine::getInstance().checkGraySquareActorLocation(this);
+   Point newLocation = GetLocation();
+
+   GameEngine::getInstance().checkGraySquareActorLocation(this, oldLocation, newLocation);
    setPosition(GetLocation().x.Value(), GetLocation().y.Value());
 }
 

@@ -48,11 +48,13 @@ void GameStage::createAndAddSquare()
 void GameStage::createAndAddGround()
 {
 	spGroundActor groundActor1 = new GroundActor(PhysicalObject::Point(50 * pixel, 500 * pixel));
-	spGroundActor groundActor2 = new GroundActor(PhysicalObject::Point(160 * pixel, 500 * pixel));
+	spGroundActor groundActor2 = new GroundActor(PhysicalObject::Point(160 * pixel, 550 * pixel));
 	spGroundActor groundActor3 = new GroundActor(PhysicalObject::Point(270 * pixel, 500 * pixel));
-	spGroundActor groundActor4 = new GroundActor(PhysicalObject::Point(380 * pixel, 500 * pixel));
+	spGroundActor groundActor4 = new GroundActor(PhysicalObject::Point(380 * pixel, 550 * pixel));
 	spGroundActor groundActor5 = new GroundActor(PhysicalObject::Point(710 * pixel, 500 * pixel));
-	spGroundActor groundActor6 = new GroundActor(PhysicalObject::Point(820 * pixel, 500 * pixel));
+	spGroundActor groundActor6 = new GroundActor(PhysicalObject::Point(820 * pixel, 550 * pixel));
+	spGroundActor groundActor7 = new GroundActor(PhysicalObject::Point(50 * pixel, 50 * pixel));
+	spGroundActor groundActor8 = new GroundActor(PhysicalObject::Point(160 * pixel, 100 * pixel));
 
 	addChild(groundActor1);
 	addChild(groundActor2);
@@ -60,6 +62,8 @@ void GameStage::createAndAddGround()
 	addChild(groundActor4);
 	addChild(groundActor5);
 	addChild(groundActor6);
+	addChild(groundActor7);
+	addChild(groundActor8);
 }
 
 void GameStage::createAndAddMenu()
