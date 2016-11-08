@@ -1,4 +1,5 @@
 #include "GameEngine.h"
+#include "Direction.h"
 
 PhysicalObject::SpeedVector zeroSpeedVector_ { Speed(0), Speed(0) };
 PhysicalObject::AccelerationVector zeroAccelerationVector_ { Acceleration(0), Acceleration(0) };
@@ -12,40 +13,25 @@ void GameEngine::registrateGroundActor(GroundActor* actor)
 	groundActors.push_back(actor);
 }
 
-enum DIRECTION
-{
-	NOT_CHANGED,
-	UP,
-	RIGHT,
-	DOWN,
-	LEFT
-};
-
 void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
 											  const PhysicalObject::Point& oldLocation,
 											  const PhysicalObject::Point& newLocation)
 {
-	DIRECTION horisontalDirection;
-	DIRECTION verticalDirection;
+	Direction horisontalDirection = Direction::NotChanged;
+	Direction verticalDirection = Direction::NotChanged;
 	
 	if (oldLocation.x.Value() < newLocation.x.Value()) {
-		horisontalDirection = RIGHT;
+		horisontalDirection = Direction::Right;
 	}
 	else if (oldLocation.x.Value() > newLocation.x.Value()) {
-		horisontalDirection = LEFT;
-	}
-	else {
-		horisontalDirection = NOT_CHANGED;
+		horisontalDirection = Direction::Left;
 	}
 
 	if (oldLocation.y.Value() < newLocation.y.Value()) {
-		verticalDirection = DOWN;
+		verticalDirection = Direction::Down;
 	}
 	else if (oldLocation.y.Value() > newLocation.y.Value()) {
-		verticalDirection = UP;
-	}
-	else {
-		verticalDirection = NOT_CHANGED;
+		verticalDirection = Direction::Up;
 	}
 
 	Distance newX(actor->GetLocation().x.Value()), newY(actor->GetLocation().y.Value());
@@ -70,7 +56,7 @@ void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
 		// Set Y value
 		switch (verticalDirection)
 		{
-		case UP:
+		case Direction::Up:
 			if (yBarrierLowerBound > yActorNewUpperBound &&
 				yBarrierLowerBound <= yActorOldUpperBound &&
 				((xActorLeftBound >= xBarrierLeftBound &&
@@ -85,7 +71,7 @@ void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
 				}
 			}
 			break;
-		case DOWN:
+		case Direction::Down:
 			if (yBarrierUpperBound < yActorNewLowerBound &&
 				yBarrierUpperBound >= yActorOldLowerBound &&
 				((xActorLeftBound >= xBarrierLeftBound &&
@@ -107,7 +93,7 @@ void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
 		// Set X value
 		switch (horisontalDirection)
 		{
-		case RIGHT:
+		case Direction::Right:
 			if (xBarrierLeftBound < xActorRightBound &&
 				xBarrierLeftBound >= xActorOldRightBound &&
 				((yActorNewUpperBound >= yBarrierUpperBound &&
@@ -124,7 +110,7 @@ void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
 				}
 			}
 			break;
-		case LEFT:
+		case Direction::Left:
 			if (xBarrierRightBound > xActorLeftBound &&
 				xBarrierRightBound <= xActorOldLeftBound &&
 				((yActorNewUpperBound >= yBarrierUpperBound &&

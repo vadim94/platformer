@@ -13,3 +13,12 @@ platformer/Debug_v140_xp/
 platformer/platformer.VC.db
 platformer/platformer.VC.VC.opendb
 platformer/.vs/
+*.idb
+*.pdb
+platformer/Release_v140_xp/
+*.obj
+platformerLib/Debug/
+platformerLib/Debug_v140_xp/
+platformerLib/Release_v140_xp/
+PlatformerTest/Debug_v140_xp/
+PlatformerTest/Release_v140_xp/

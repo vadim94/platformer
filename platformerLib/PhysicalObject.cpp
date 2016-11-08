@@ -1,7 +1,7 @@
 #include "PhysicalObject.h"
 #include <cmath>
 
-PhysicalObject::AccelerationVector PhysicalObject::gravityAcceleration_{ Acceleration(0), Acceleration(800) };
+PhysicalObject::AccelerationVector PhysicalObject::gravityAcceleration_{ pixelPerSquareSecond * 0, pixelPerSquareSecond * 800 };
 
 PhysicalObject::PhysicalObject(const PhysicalObject::Point& location) : location_{ location }
 {

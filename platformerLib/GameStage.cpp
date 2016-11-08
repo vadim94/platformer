@@ -11,6 +11,7 @@
 #include "GroundActor.h"
 #include "GreySquareActor.h"
 #include "PauseMenuActor.h"
+#include "Direction.h"
 
 GameStage::GameStage(const oxygine::Vector2& size) : oxygine::Stage(true)
 {
@@ -28,20 +29,29 @@ void GameStage::createAndAddSquare()
 		if (isPaused())
 			return;
 
-		const PhysicalObject::AccelerationVector horizontalAcceleration(500 * pixelPerSquareSecond, Acceleration(0));
 		switch (dynamic_cast<oxygine::KeyEvent*>(event)->data->keysym.scancode)
 		{
 		case SDL_SCANCODE_LEFT:
-			actor->SetAcceleration(actor->GetAcceleration() - horizontalAcceleration);
+			actor->MoveHorizontally(Direction::Left);
 			break;
 		case SDL_SCANCODE_RIGHT:
-			actor->SetAcceleration(actor->GetAcceleration() + horizontalAcceleration);
+			actor->MoveHorizontally(Direction::Right);
 			break;
 		case SDL_SCANCODE_SPACE:
 			actor->Jump();
 			break;
 		}
 	});
+
+   addEventListener(oxygine::KeyEvent::KEY_UP, [this, actor](oxygine::Event* event)
+   {
+      const auto scancode = dynamic_cast<oxygine::KeyEvent*>(event)->data->keysym.scancode;
+      if (scancode == SDL_SCANCODE_LEFT || scancode == SDL_SCANCODE_RIGHT)
+      {
+         actor->StopMoveHorizontally();
+      }
+   });
+
 	addChild(actor);
 }
 
