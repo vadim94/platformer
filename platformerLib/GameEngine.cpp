@@ -1,6 +1,9 @@
 #include "GameEngine.h"
 #include "Direction.h"
 
+#include "EndGameEvent.h"
+#include "Stage.h"
+
 PhysicalObject::SpeedVector zeroSpeedVector_ { Speed(0), Speed(0) };
 PhysicalObject::AccelerationVector zeroAccelerationVector_ { Acceleration(0), Acceleration(0) };
 
@@ -20,6 +23,13 @@ void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
 	Direction horisontalDirection = Direction::NotChanged;
 	Direction verticalDirection = Direction::NotChanged;
 	
+	// Check end game (fall)
+	if ((newLocation.y.Value() + actor->getSize().y) >= oxygine::getStage()->getSize().y)
+	{
+		EndGameEvent ev;
+		oxygine::Stage::instance->dispatchEvent(&ev);
+	}
+
 	if (oldLocation.x.Value() < newLocation.x.Value()) {
 		horisontalDirection = Direction::Right;
 	}
@@ -130,7 +140,8 @@ void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
 		}
 	}
 
-	if (isTouched) {
+	if (isTouched)
+	{
 		oxygine::VectorT2<Distance> newLocation(newX, newY);
 		actor->SetLocation(newLocation);
 		actor->SetSpeed(zeroSpeedVector_);
@@ -138,6 +149,11 @@ void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
 	}
 
 	return;
+}
+
+void GameEngine::reset()
+{
+	groundActors.clear();
 }
 
 GameEngine& GameEngine::getInstance()

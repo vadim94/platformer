@@ -2,6 +2,7 @@
 #include "Stage.h"
 
 #include "PauseMenuActor.h"
+#include "EndGameActor.h"
 
 class GameStage : public oxygine::Stage
 {
@@ -13,8 +14,10 @@ private:
 	void createAndAddGround();
 	void createAndAddMenu();
 	bool isPaused();
+	bool isEnded();
 
 private:
 	spPauseMenuActor pauseMenu;
+	spEndGameActor endGame;
 };
 

@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClInclude Include="ButtonAlignerActor.h" />
     <ClInclude Include="Direction.h" />
+    <ClInclude Include="EndGameActor.h" />
+    <ClInclude Include="EndGameEvent.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameStage.h" />
     <ClInclude Include="GreySquareActor.h" />
@@ -33,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ButtonAlignerActor.cpp" />
+    <ClCompile Include="EndGameActor.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameStage.cpp" />
     <ClCompile Include="GreySquareActor.cpp" />

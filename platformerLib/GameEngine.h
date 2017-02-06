@@ -13,6 +13,8 @@ public:
 	void checkGraySquareActorLocation(GreySquareActor* obj,
 									  const PhysicalObject::Point& oldLocation,
 									  const PhysicalObject::Point& newLocation);
+	
+	void reset();
 
 private:
 	GameEngine();
