@@ -15,12 +15,15 @@
 #include "Direction.h"
 
 #include "EndGameEvent.h"
+#include "MoveEvent.h"
+
+const Distance GameStage::scrollBuffer_ = pixel * 200;
 
 GameStage::GameStage(const oxygine::Vector2& size) : oxygine::Stage(true)
 {
 	setSize(size);
 	createAndAddSquare();
-	createAndAddGround();
+	createAndAddAllGround();
 	createAndAddMenu();
 }
 
@@ -56,56 +59,74 @@ void GameStage::createAndAddSquare()
    });
 
 	addChild(actor);
+   scroller_.Add(actor.get());
 }
 
-void GameStage::createAndAddGround()
+void GameStage::createAndAddAllGround()
 {
 	GameEngine::getInstance().reset();
 
-	spGroundActor groundActor1 = new GroundActor(PhysicalObject::Point(50 * pixel, 500 * pixel));
-	spGroundActor groundActor2 = new GroundActor(PhysicalObject::Point(160 * pixel, 550 * pixel));
-	spGroundActor groundActor3 = new GroundActor(PhysicalObject::Point(270 * pixel, 500 * pixel));
-	spGroundActor groundActor4 = new GroundActor(PhysicalObject::Point(380 * pixel, 550 * pixel));
-	spGroundActor groundActor5 = new GroundActor(PhysicalObject::Point(710 * pixel, 500 * pixel));
-	spGroundActor groundActor6 = new GroundActor(PhysicalObject::Point(820 * pixel, 550 * pixel));
-	spGroundActor groundActor7 = new GroundActor(PhysicalObject::Point(50 * pixel, 50 * pixel));
-	spGroundActor groundActor8 = new GroundActor(PhysicalObject::Point(160 * pixel, 100 * pixel));
+   createAndAddGround(PhysicalObject::Point(50 * pixel, 500 * pixel));
+   createAndAddGround(PhysicalObject::Point(160 * pixel, 550 * pixel));
+   createAndAddGround(PhysicalObject::Point(270 * pixel, 500 * pixel));
+   createAndAddGround(PhysicalObject::Point(380 * pixel, 550 * pixel));
+   createAndAddGround(PhysicalObject::Point(710 * pixel, 500 * pixel));
+   createAndAddGround(PhysicalObject::Point(820 * pixel, 550 * pixel));
+   createAndAddGround(PhysicalObject::Point(50 * pixel, 50 * pixel));
+   createAndAddGround(PhysicalObject::Point(160 * pixel, 100 * pixel));
+}
 
-	addChild(groundActor1);
-	addChild(groundActor2);
-	addChild(groundActor3);
-	addChild(groundActor4);
-	addChild(groundActor5);
-	addChild(groundActor6);
-	addChild(groundActor7);
-	addChild(groundActor8);
+void GameStage::createAndAddGround(const PhysicalObject::Point& point)
+{
+   spGroundActor groundActor = new GroundActor(point);
+   addChild(groundActor);
+   scroller_.Add(groundActor.get());
 }
 
 void GameStage::createAndAddMenu()
 {
-	pauseMenu = new PauseMenuActor();
-	addEventListener(oxygine::KeyEvent::KEY_DOWN, [pauseMenu = pauseMenu](oxygine::Event* event)
+	pauseMenu_ = new PauseMenuActor();
+	addEventListener(oxygine::KeyEvent::KEY_DOWN, [pauseMenu = pauseMenu_](oxygine::Event* event)
 	{
 		if (dynamic_cast<oxygine::KeyEvent*>(event)->data->keysym.scancode == SDL_SCANCODE_ESCAPE)
 			pauseMenu->Toggle();
 	});
-	addChild(pauseMenu);
+	addChild(pauseMenu_);
 
-	endGame = new EndGameActor();
-	addEventListener(EndGameEvent::EVENT, [endGame = endGame](oxygine::Event* event)
+	endGame_ = new EndGameActor();
+	addEventListener(EndGameEvent::EVENT, [endGame = endGame_](oxygine::Event* event)
 	{
 		endGame->show();
 		oxygine::Stage::instance->removeAllEventListeners();
 	});
-	addChild(endGame);
+	addChild(endGame_);
+
+   addEventListener(MoveEvent::EVENT, [this](oxygine::Event* event)
+   {
+      MoveEvent* moveEvent = dynamic_cast<MoveEvent*>(event);
+      GameEngine::getInstance().checkGraySquareActorLocation(
+         moveEvent->movedObject_, moveEvent->oldPosition_, moveEvent->newPosition_);
+      scrollIfNeeded(moveEvent->movedObject_->GetLocation());
+   });
+   
+}
+
+void GameStage::scrollIfNeeded(const PhysicalObject::Point& locationOfActiveObject)
+{
+   Distance distanceToRightBorder = pixel * getWidth() - locationOfActiveObject.x;
+   Distance distanceToLeftBorder = locationOfActiveObject.x;
+   Distance moveToLeft = distanceToRightBorder - scrollBuffer_;
+   Distance moveToRight = scrollBuffer_ - distanceToLeftBorder;
+   if (moveToLeft < 0 * pixel) scroller_.MoveBy(moveToLeft);
+   if (moveToRight > 0 * pixel) scroller_.MoveBy(moveToRight);
 }
 
 bool GameStage::isPaused()
 {
-	return pauseMenu->IsShown();
+	return pauseMenu_->IsShown();
 }
 
 bool GameStage::isEnded()
 {
-	return endGame->isShown();
+	return endGame_->isShown();
 }

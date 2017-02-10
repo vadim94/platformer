@@ -3,7 +3,7 @@
 
 #include "math/vector2.h"
 
-#include "PhysicalObject.h"
+#include "PhysicalObjectForTest.h"
 #include "PhysicConstants.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -16,7 +16,7 @@ namespace PlatformerTest
 
       TEST_METHOD(ConstructedWithZeroSpeedAndZeroPointLocation)
       {
-         PhysicalObject object;
+         PhysicalObjectForTest object;
 
          Assert::IsTrue(zeroPoint == object.GetLocation());
          Assert::IsTrue(zeroSpeed == object.GetSpeed());
@@ -24,33 +24,18 @@ namespace PlatformerTest
 
       TEST_METHOD(ConstructedWithLocation)
       {
-         PhysicalObject object(someLocation);
+         PhysicalObjectForTest object(someLocation);
 
          Assert::IsTrue(someLocation == object.GetLocation());
-      }
-
-      TEST_METHOD(SetSpeed)
-      {
-         PhysicalObject object;
-         object.SetSpeed(oneUnitPerSecondHorizontally);
-
-         Assert::IsTrue(oneUnitPerSecondHorizontally == object.GetSpeed());
-      }
-
-      TEST_METHOD(SetGravity)
-      {
-         PhysicalObject::SetGravity(oneUnitPerSecondSquaredVertically);
-
-         Assert::IsTrue(PhysicalObject::GetGravity() == oneUnitPerSecondSquaredVertically);
       }
 
       TEST_METHOD(MovesWhenNonZeroSpeed)
       {
          PhysicalObject::SetGravity(zeroAccelerationVector);
-         PhysicalObject object;
+         PhysicalObjectForTest object;
          object.SetSpeed(oneUnitPerSecondHorizontally);
 
-         object.Update(oneSecondUpdateStruct);
+         object.CalculateNewLocation(oneSecondUpdateStruct);
 
          Assert::IsTrue(oneUnitHorisontallyPoint == object.GetLocation());
       }
@@ -58,10 +43,10 @@ namespace PlatformerTest
       TEST_METHOD(MovesWithGravity)
       {
          PhysicalObject::SetGravity(oneUnitPerSecondSquaredVertically);
-         PhysicalObject object;
+         PhysicalObjectForTest object;
          object.SetSpeed(oneUnitPerSecondHorizontally);
 
-         object.Update(oneSecondUpdateStruct);
+         object.CalculateNewLocation(oneSecondUpdateStruct);
 
          Assert::IsTrue(oneUnitHorizontalyAndVertically == object.GetLocation());
       }
@@ -69,10 +54,10 @@ namespace PlatformerTest
       TEST_METHOD(MovesWithGravityAndCustomAcceleration)
       {
          PhysicalObject::SetGravity(oneUnitPerSecondSquaredVertically);
-         PhysicalObject object;
+         PhysicalObjectForTest object;
          object.SetAcceleration(oneUnitPerSecondSquaredHorizontally);
 
-         object.Update(oneSecondUpdateStruct);
+         object.CalculateNewLocation(oneSecondUpdateStruct);
 
          Assert::IsTrue(oneUnitHorizontalyAndVertically == object.GetLocation());
       }

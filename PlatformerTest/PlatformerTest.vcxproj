@@ -107,12 +107,14 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="PhysicalObjectForTest.h" />
     <ClInclude Include="PhysicConstants.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ToStringOverloads.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ScrollerTest.cpp" />
     <ClCompile Include="SquareActorTest.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

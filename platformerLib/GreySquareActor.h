@@ -16,6 +16,9 @@ public:
 
    virtual void doUpdate(const oxygine::UpdateState& us) override;
 
+   virtual void SetLocation(const Point& location) override;
+   virtual Point GetLocation() const override;
+
    static const Speed& GetMaxHorizontalSpeed() { return maxHorizontalSpeed_; }
    static const Acceleration& GetMaxHorizontalMoveAcceleration() { return horizontalMoveAcceleration_; }
 

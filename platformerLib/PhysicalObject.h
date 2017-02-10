@@ -12,7 +12,6 @@ public:
    using SpeedVector = oxygine::VectorT2 < Speed > ;
    using AccelerationVector = oxygine::VectorT2 < Acceleration > ;
 
-   PhysicalObject(const Point& location);
    PhysicalObject() = default;
    virtual ~PhysicalObject() = default;
 
@@ -22,11 +21,9 @@ public:
    void SetSpeed(const SpeedVector& newSpeed);
    const SpeedVector& GetSpeed() const;
 
-   const Point& GetLocation() const;
-
-   void Update(const oxygine::UpdateState& updateState);
-
-   void SetLocation(const Point& newLocation);
+   virtual Point GetLocation() const = 0;
+   virtual void SetLocation(const Point& newLocation) = 0;
+   void CalculateNewLocation(const oxygine::UpdateState& updateState);
 
    static const AccelerationVector& GetGravity();
    static void SetGravity(const AccelerationVector& newGravity);
@@ -37,7 +34,6 @@ private:
    Point updatePosition(const oxygine::UpdateState& updateState, const SpeedVector& newSpeed);
 
 private:
-   Point location_;
    SpeedVector speed_;
    AccelerationVector acceleration_;
 

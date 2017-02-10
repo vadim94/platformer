@@ -3,15 +3,6 @@
 
 PhysicalObject::AccelerationVector PhysicalObject::gravityAcceleration_{ pixelPerSquareSecond * 0, pixelPerSquareSecond * 800 };
 
-PhysicalObject::PhysicalObject(const PhysicalObject::Point& location) : location_{ location }
-{
-}
-
-const PhysicalObject::Point& PhysicalObject::GetLocation() const
-{
-   return location_;
-}
-
 const PhysicalObject::SpeedVector& PhysicalObject::GetSpeed() const
 {
    return speed_;
@@ -27,22 +18,17 @@ void PhysicalObject::SetAcceleration(const AccelerationVector& newAcceleration)
    acceleration_ = newAcceleration;
 }
 
-void PhysicalObject::SetLocation(const Point& newLocation)
-{
-	location_ = newLocation;
-}
-
 const PhysicalObject::AccelerationVector& PhysicalObject::GetAcceleration()
 {
    return acceleration_;
 }
 
-void PhysicalObject::Update(const oxygine::UpdateState& updateState)
+void PhysicalObject::CalculateNewLocation(const oxygine::UpdateState& updateState)
 {
    auto newSpeed = updateSpeed(updateState);
    auto newPosition = updatePosition(updateState, newSpeed);
 
-   location_ = newPosition;
+   SetLocation(newPosition);
    speed_ = newSpeed;
 }
 
@@ -56,7 +42,7 @@ PhysicalObject::SpeedVector PhysicalObject::updateSpeed(const oxygine::UpdateSta
 
 PhysicalObject::Point PhysicalObject::updatePosition(const oxygine::UpdateState& updateState, const PhysicalObject::SpeedVector& newSpeed)
 {
-   auto newLocation = location_;
+   auto newLocation = GetLocation();
    newLocation.x += newSpeed.x * Time(updateState.dt / 1000.0);
    newLocation.y += newSpeed.y * Time(updateState.dt / 1000.0);
    return newLocation;

@@ -44,6 +44,27 @@ public:
       return *this;
    }
 
+   bool operator <(const Unit& rhs) const
+   {
+      return !AreEqual(rhs, std::numeric_limits<ValueType>::epsilon()) && val_ < rhs.val_;
+   }
+
+   bool operator ==(const Unit& rhs) const
+   {
+      return this == &rhs || AreEqual(rhs, std::numeric_limits<ValueType>::epsilon());
+   }
+
+   bool operator !=(const Unit& rhs) const
+   {
+      return !(*this == rhs);
+   }
+
+   bool operator >(const Unit& rhs) const
+   {
+      return !(*this < rhs) && (*this != rhs);
+   }
+
+
 private:
    ValueType val_;
 };

@@ -142,7 +142,7 @@ void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
 
 	if (isTouched)
 	{
-		oxygine::VectorT2<Distance> newLocation(newX, newY);
+		PhysicalObject::Point newLocation(newX, newY);
 		actor->SetLocation(newLocation);
 		actor->SetSpeed(zeroSpeedVector_);
 		actor->SetAcceleration(zeroAccelerationVector_);
