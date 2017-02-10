@@ -79,13 +79,3 @@ void GreySquareActor::StopMoveHorizontally()
 {
    moveDirection_ = Direction::NotChanged;
 }
-
-void GreySquareActor::SetLocation(const Point& location)
-{
-   setPosition(static_cast<float>(location.x.Value()), static_cast<float>(location.y.Value()));
-}
-PhysicalObject::Point GreySquareActor::GetLocation() const
-{
-   auto position = getPosition();
-   return Point(pixel * position.x, pixel * position.y);
-}

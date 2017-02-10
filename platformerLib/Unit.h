@@ -64,6 +64,15 @@ public:
       return !(*this < rhs) && (*this != rhs);
    }
 
+   bool operator >=(const Unit& rhs) const
+   {
+      return !(*this < rhs);
+   }
+
+   bool operator <=(const Unit& rhs) const
+   {
+      return !(*this > rhs);
+   }
 
 private:
    ValueType val_;

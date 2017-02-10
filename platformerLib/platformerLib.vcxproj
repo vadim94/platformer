@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActorBase.h" />
     <ClInclude Include="ButtonAlignerActor.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="EndGameActor.h" />
@@ -36,6 +37,7 @@
     <ClInclude Include="Unit.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ActorBase.cpp" />
     <ClCompile Include="ButtonAlignerActor.cpp" />
     <ClCompile Include="EndGameActor.cpp" />
     <ClCompile Include="EnvironmentScroller.cpp" />

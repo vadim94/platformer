@@ -9,6 +9,7 @@ class PhysicalObject
 public:
 
    using Point = oxygine::VectorT2 < Distance > ;
+   using Size = Point;
    using SpeedVector = oxygine::VectorT2 < Speed > ;
    using AccelerationVector = oxygine::VectorT2 < Acceleration > ;
 
@@ -21,9 +22,12 @@ public:
    void SetSpeed(const SpeedVector& newSpeed);
    const SpeedVector& GetSpeed() const;
 
+   void CalculateNewLocation(const oxygine::UpdateState& updateState);
+
    virtual Point GetLocation() const = 0;
    virtual void SetLocation(const Point& newLocation) = 0;
-   void CalculateNewLocation(const oxygine::UpdateState& updateState);
+   virtual Size GetSize() const = 0;
+   virtual void SetSize(const Size& size) = 0;
 
    static const AccelerationVector& GetGravity();
    static void SetGravity(const AccelerationVector& newGravity);

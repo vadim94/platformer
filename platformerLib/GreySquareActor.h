@@ -1,12 +1,11 @@
 #pragma once
 
-#include "ColorRectSprite.h"
-#include "PhysicalObject.h"
+#include "ActorBase.h"
 
 enum class Direction;
 
 DECLARE_SMART(GreySquareActor, spGreySquareActor);
-class GreySquareActor : public oxygine::ColorRectSprite, public PhysicalObject
+class GreySquareActor : public ActorBase
 {
 public:
    GreySquareActor(const PhysicalObject::Point& startPoint);
@@ -15,9 +14,6 @@ public:
    void StopMoveHorizontally();
 
    virtual void doUpdate(const oxygine::UpdateState& us) override;
-
-   virtual void SetLocation(const Point& location) override;
-   virtual Point GetLocation() const override;
 
    static const Speed& GetMaxHorizontalSpeed() { return maxHorizontalSpeed_; }
    static const Acceleration& GetMaxHorizontalMoveAcceleration() { return horizontalMoveAcceleration_; }

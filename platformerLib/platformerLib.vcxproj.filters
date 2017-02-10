@@ -60,6 +60,9 @@
     <ClInclude Include="EnvironmentScroller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ActorBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ButtonAlignerActor.cpp">
@@ -93,6 +96,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EnvironmentScroller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

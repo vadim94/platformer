@@ -11,12 +11,12 @@ GameEngine::GameEngine()
 {
 }
 
-void GameEngine::registrateGroundActor(GroundActor* actor)
+void GameEngine::registrateObject(PhysicalObject* actor)
 {
 	groundActors.push_back(actor);
 }
 
-void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
+void GameEngine::checkGraySquareActorLocation(PhysicalObject* actor,
 											  const PhysicalObject::Point& oldLocation,
 											  const PhysicalObject::Point& newLocation)
 {
@@ -24,44 +24,44 @@ void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
 	Direction verticalDirection = Direction::NotChanged;
 	
 	// Check end game (fall)
-	if ((newLocation.y.Value() + actor->getSize().y) >= oxygine::getStage()->getSize().y)
+	if ((newLocation.y + actor->GetSize().y) >= oxygine::getStage()->getSize().y * pixel)
 	{
 		EndGameEvent ev;
 		oxygine::Stage::instance->dispatchEvent(&ev);
 	}
 
-	if (oldLocation.x.Value() < newLocation.x.Value()) {
+	if (oldLocation.x < newLocation.x) {
 		horisontalDirection = Direction::Right;
 	}
-	else if (oldLocation.x.Value() > newLocation.x.Value()) {
+	else if (oldLocation.x > newLocation.x) {
 		horisontalDirection = Direction::Left;
 	}
 
-	if (oldLocation.y.Value() < newLocation.y.Value()) {
+	if (oldLocation.y < newLocation.y) {
 		verticalDirection = Direction::Down;
 	}
-	else if (oldLocation.y.Value() > newLocation.y.Value()) {
+	else if (oldLocation.y > newLocation.y) {
 		verticalDirection = Direction::Up;
 	}
 
 	Distance newX(actor->GetLocation().x.Value()), newY(actor->GetLocation().y.Value());
 	bool isTouched = false;
 
-	double yActorOldUpperBound = oldLocation.y.Value();
-	double yActorNewUpperBound = newLocation.y.Value();
-	double yActorOldLowerBound = oldLocation.y.Value() + actor->getSize().y;
-	double yActorNewLowerBound = newLocation.y.Value() + actor->getSize().y;
-	double xActorLeftBound = newLocation.x.Value();
-	double xActorRightBound = newLocation.x.Value() + actor->getSize().x;
-	double xActorOldLeftBound = oldLocation.x.Value();
-	double xActorOldRightBound = oldLocation.x.Value() + actor->getSize().x;
+	Distance yActorOldUpperBound = oldLocation.y;
+   Distance yActorNewUpperBound = newLocation.y;
+   Distance yActorOldLowerBound = oldLocation.y + actor->GetSize().y;
+   Distance yActorNewLowerBound = newLocation.y + actor->GetSize().y;
+   Distance xActorLeftBound = newLocation.x;
+   Distance xActorRightBound = newLocation.x + actor->GetSize().x;
+   Distance xActorOldLeftBound = oldLocation.x;
+   Distance xActorOldRightBound = oldLocation.x + actor->GetSize().x;
 
-	for (GroundActor* barrier: groundActors)
+	for (PhysicalObject* barrier: groundActors)
 	{
-		double xBarrierRightBound = barrier->GetLocation().x.Value() + barrier->getSize().x;
-		double xBarrierLeftBound = barrier->GetLocation().x.Value();
-		double yBarrierUpperBound = barrier->GetLocation().y.Value();
-		double yBarrierLowerBound = barrier->GetLocation().y.Value() + barrier->getSize().y;
+      Distance xBarrierRightBound = barrier->GetLocation().x + barrier->GetSize().x;
+      Distance xBarrierLeftBound = barrier->GetLocation().x;
+      Distance yBarrierUpperBound = barrier->GetLocation().y;
+      Distance yBarrierLowerBound = barrier->GetLocation().y + barrier->GetSize().y;
 
 		// Set Y value
 		switch (verticalDirection)
@@ -75,9 +75,9 @@ void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
 				xActorRightBound >= xBarrierLeftBound)))
 			{
 				isTouched = true;
-				if (newY.Value() < yBarrierLowerBound)
+				if (newY < yBarrierLowerBound)
 				{
-					newY.Value() = yBarrierLowerBound;
+					newY = yBarrierLowerBound;
 				}
 			}
 			break;
@@ -92,9 +92,9 @@ void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
 				xActorRightBound > xBarrierRightBound)))
 			{
 				isTouched = true;
-				if (newY.Value() > yBarrierUpperBound - actor->getSize().y)
+				if (newY > yBarrierUpperBound - actor->GetSize().y)
 				{
-					newY.Value() = yBarrierUpperBound - actor->getSize().y;
+					newY = yBarrierUpperBound - actor->GetSize().y;
 				}
 			}
 			break;
@@ -114,9 +114,9 @@ void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
 				yActorNewLowerBound > yBarrierLowerBound)))
 			{
 				isTouched = true;
-				if (newX.Value() > (xBarrierLeftBound - actor->getSize().x))
+				if (newX > (xBarrierLeftBound - actor->GetSize().x))
 				{
-					newX.Value() = xBarrierLeftBound - actor->getSize().x;
+					newX = xBarrierLeftBound - actor->GetSize().x;
 				}
 			}
 			break;
@@ -131,9 +131,9 @@ void GameEngine::checkGraySquareActorLocation(GreySquareActor* actor,
 				yActorNewLowerBound > yBarrierLowerBound)))
 			{
 				isTouched = true;
-				if (newX.Value() < xBarrierRightBound)
+				if (newX < xBarrierRightBound)
 				{
-					newX.Value() = xBarrierRightBound;
+					newX = xBarrierRightBound;
 				}
 			}
 			break;
