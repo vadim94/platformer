@@ -19,14 +19,14 @@ public:
 	bool IsShown() const;
 
 private:
-	void show();
-	void hide();
-	void addButtons();
-	void setupMenuVisualParameters();
+	void Show();
+	void Hide();
+	void AddButtons();
+	void SetupMenuVisualParameters();
 
 private:
-	static const oxygine::Color backgroundColor_;
+	static const oxygine::Color kBackgroundColor;
 
-	spButtonAlignerActor buttonFormatter_;
+	spButtonAlignerActor button_formatter_;
 };
 

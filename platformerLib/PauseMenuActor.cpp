@@ -9,42 +9,42 @@
 #include "MainMenuStage.h"
 #include "GameStage.h"
 
-const oxygine::Color PauseMenuActor::backgroundColor_ = oxygine::Color(255, 0, 0, 100);
+const oxygine::Color PauseMenuActor::kBackgroundColor = oxygine::Color(255, 0, 0, 100);
 
-PauseMenuActor::PauseMenuActor() : buttonFormatter_(new ButtonAlignerActor)
+PauseMenuActor::PauseMenuActor() : button_formatter_(new ButtonAlignerActor)
 {
-	addButtons();
-	setupMenuVisualParameters();
+	AddButtons();
+	SetupMenuVisualParameters();
 }
 
-void PauseMenuActor::setupMenuVisualParameters()
+void PauseMenuActor::SetupMenuVisualParameters()
 {
 	setVisible(false);
 	setSize(oxygine::getStage()->getSize());
-	setColor(backgroundColor_);
+	setColor(kBackgroundColor);
 
-	const oxygine::Vector2 buttonFormatterTopLeft = (oxygine::getStage()->getSize() - buttonFormatter_->getSize()) / 2;
-	buttonFormatter_->setPosition(buttonFormatterTopLeft);
-	addChild(buttonFormatter_);
+	const oxygine::Vector2 button_formatter_top_left = (oxygine::getStage()->getSize() - button_formatter_->getSize()) / 2;
+	button_formatter_->setPosition(button_formatter_top_left);
+	addChild(button_formatter_);
 }
 
-void PauseMenuActor::addButtons()
+void PauseMenuActor::AddButtons()
 {
-	buttonFormatter_->AddButton("Continue")
+	button_formatter_->AddButton("Continue")
 		            ->addEventListener(oxygine::TouchEvent::CLICK, [this](oxygine::Event*) { Toggle(); });
-	buttonFormatter_->AddButton("Restart")
+	button_formatter_->AddButton("Restart")
 					->addEventListener(oxygine::TouchEvent::CLICK, [this](oxygine::Event*) 
 	{
 		oxygine::Stage::instance = new GameStage(getSize());
 		oxygine::DebugActor::show();
 	});
-	buttonFormatter_->AddButton("Main menu")
+	button_formatter_->AddButton("Main menu")
 		            ->addEventListener(oxygine::TouchEvent::CLICK, [this](oxygine::Event*) 
 	{
 		oxygine::Stage::instance = new MainMenuStage(getSize());
 		oxygine::DebugActor::show();
 	});
-	buttonFormatter_->AddButton("Exit")
+	button_formatter_->AddButton("Exit")
 		            ->addEventListener(oxygine::TouchEvent::CLICK, [](oxygine::Event*) { oxygine::core::requestQuit(); });
 }
 
@@ -52,11 +52,11 @@ void PauseMenuActor::Toggle()
 {
 	if (IsShown())
 	{
-		hide();
+		Hide();
 	}
 	else
 	{
-		show();
+		Show();
 	}
 }
 
@@ -65,13 +65,13 @@ bool PauseMenuActor::IsShown() const
 	return getVisible();
 }
 
-void PauseMenuActor::show()
+void PauseMenuActor::Show()
 {
 	oxygine::getStage()->getClock()->pause();
 	setVisible(true);
 }
 
-void PauseMenuActor::hide()
+void PauseMenuActor::Hide()
 {
 	oxygine::getStage()->getClock()->resume();
 	setVisible(false);

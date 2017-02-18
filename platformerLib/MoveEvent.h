@@ -7,11 +7,11 @@ class MoveEvent : public oxygine::Event
 {
 public:
    enum { EVENT = eventID('M', 'O', 'V', 'E') };
-   MoveEvent(GreySquareActor* movedObject, const PhysicalObject::Point& oldPosition,
-      const PhysicalObject::Point& newPosition)
-      : Event(EVENT), movedObject_(movedObject), oldPosition_(oldPosition), newPosition_(newPosition) {}
+   MoveEvent(GreySquareActor* moved_object, const PhysicalObject::Point& old_position,
+      const PhysicalObject::Point& new_position)
+      : Event(EVENT), moved_object_(moved_object), old_position_(old_position), new_position_(new_position) {}
 
-   GreySquareActor* movedObject_;
-   PhysicalObject::Point oldPosition_;
-   PhysicalObject::Point newPosition_;
+   GreySquareActor* moved_object_;
+   PhysicalObject::Point old_position_;
+   PhysicalObject::Point new_position_;
 };

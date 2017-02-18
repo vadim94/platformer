@@ -20,9 +20,9 @@ int mainloop()
 
    if (core::beginRendering())
    {
-      Color clearColor(32, 32, 32, 255);
+      Color clear_color(32, 32, 32, 255);
       Rect viewport(Point(0, 0), core::getDisplaySize());
-      getStage()->render(clearColor, viewport);
+      getStage()->render(clear_color, viewport);
 
       core::swapDisplayBuffers();
    }

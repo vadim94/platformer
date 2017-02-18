@@ -7,31 +7,31 @@
 
 namespace PlatformerTest
 {
-   static oxygine::UpdateState getUpdateStruct(double seconds)
+   static oxygine::UpdateState GetUpdateStruct(double seconds)
    {
       oxygine::UpdateState update;
       update.dt = static_cast<oxygine::timeMS>(seconds * 1000);
       return update;
    }
 
-   static oxygine::UpdateState getUpdateStruct(Time seconds)
+   static oxygine::UpdateState GetUpdateStruct(Time seconds)
    {
-      return getUpdateStruct(seconds.Value());
+      return GetUpdateStruct(seconds.Value());
    }
 
-	static const oxygine::UpdateState oneSecondUpdateStruct = getUpdateStruct(1);
-	static const oxygine::UpdateState halfSecondUpdateStruct = getUpdateStruct(0.5);
+	static const oxygine::UpdateState kOneSecondUpdateStruct = GetUpdateStruct(1);
+	static const oxygine::UpdateState kHalfSecondUpdateStruct = GetUpdateStruct(0.5);
 
-	static const PhysicalObject::Point oneUnitHorizontalyAndVertically{ pixel, pixel };
-	static const PhysicalObject::Point someLocation = oneUnitHorizontalyAndVertically;
-	static const PhysicalObject::Point zeroPoint{ Distance(0), Distance(0) };
-	static const PhysicalObject::Point oneUnitHorisontallyPoint{ Distance(1), Distance(0) };
+	static const PhysicalObject::Point kOneUnitHorizontalyAndVertically{ kPixel, kPixel };
+	static const PhysicalObject::Point kSomeLocation = kOneUnitHorizontalyAndVertically;
+	static const PhysicalObject::Point kZeroPoint{ Distance(0), Distance(0) };
+	static const PhysicalObject::Point kOneUnitHorisontallyPoint{ Distance(1), Distance(0) };
 
-	static const PhysicalObject::SpeedVector zeroSpeed{ Speed(0), Speed(0) };
-	static const PhysicalObject::SpeedVector oneUnitPerSecondHorizontally{ pixelPerSecond, Speed(0) };
-	static const PhysicalObject::SpeedVector oneUnitPerSecondVertically{ Speed(0), pixelPerSecond };
-	static const PhysicalObject::AccelerationVector zeroAccelerationVector{ Acceleration(0), Acceleration(0) };
-	static const PhysicalObject::AccelerationVector oneUnitPerSecondSquaredVertically{ Acceleration(0), pixelPerSquareSecond };
-	static const PhysicalObject::AccelerationVector oneUnitPerSecondSquaredHorizontally{ pixelPerSquareSecond, Acceleration(0) };
-	static const PhysicalObject::AccelerationVector oneUnitPerSecondSquaredVerticallyAndHorizontally{ Acceleration(0), Acceleration(0) };
+	static const PhysicalObject::SpeedVector kZeroSpeed{ Speed(0), Speed(0) };
+	static const PhysicalObject::SpeedVector kOneUnitPerSecondHorizontally{ kPixelPerSecond, Speed(0) };
+	static const PhysicalObject::SpeedVector kOneUnitPerSecondVertically{ Speed(0), kPixelPerSecond };
+	static const PhysicalObject::AccelerationVector kZeroAccelerationVector{ Acceleration(0), Acceleration(0) };
+	static const PhysicalObject::AccelerationVector kOneUnitPerSecondSquaredVertically{ Acceleration(0), kPixelPerSquareSecond };
+	static const PhysicalObject::AccelerationVector kOneUnitPerSecondSquaredHorizontally{ kPixelPerSquareSecond, Acceleration(0) };
+	static const PhysicalObject::AccelerationVector kOneUnitPerSecondSquaredVerticallyAndHorizontally{ Acceleration(0), Acceleration(0) };
 }

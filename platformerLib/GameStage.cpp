@@ -17,31 +17,31 @@
 #include "EndGameEvent.h"
 #include "MoveEvent.h"
 
-const Distance GameStage::scrollBuffer_ = pixel * 200;
+const Distance GameStage::kScrollBuffer = kPixel * 200;
 
 GameStage::GameStage(const oxygine::Vector2& size) : oxygine::Stage(true)
 {
 	setSize(size);
-	createAndAddSquare();
-	createAndAddAllGround();
-	createAndAddMenu();
+	CreateAndAddSquare();
+	CreateAndAddAllGround();
+	CreateAndAddMenu();
 }
 
-void GameStage::createAndAddSquare()
+void GameStage::CreateAndAddSquare()
 {
-	spGreySquareActor actor = new GreySquareActor(PhysicalObject::Point(50 * pixel, 50 * pixel));
+	spGreySquareActor actor = new GreySquareActor(PhysicalObject::Point(50 * kPixel, 50 * kPixel));
 	addEventListener(oxygine::KeyEvent::KEY_DOWN, [this, actor](oxygine::Event* event)
 	{
-		if (isPaused() || isEnded())
+		if (IsPaused() || IsEnded())
 			return;
 
 		switch (dynamic_cast<oxygine::KeyEvent*>(event)->data->keysym.scancode)
 		{
 		case SDL_SCANCODE_LEFT:
-			actor->MoveHorizontally(Direction::Left);
+			actor->MoveHorizontally(Direction::kLeft);
 			break;
 		case SDL_SCANCODE_RIGHT:
-			actor->MoveHorizontally(Direction::Right);
+			actor->MoveHorizontally(Direction::kRight);
 			break;
 		case SDL_SCANCODE_SPACE:
 			actor->Jump();
@@ -62,71 +62,71 @@ void GameStage::createAndAddSquare()
    scroller_.Add(actor.get());
 }
 
-void GameStage::createAndAddAllGround()
+void GameStage::CreateAndAddAllGround()
 {
-	GameEngine::getInstance().reset();
+	GameEngine::GetInstance().Reset();
 
-   createAndAddGround(PhysicalObject::Point(50 * pixel, 500 * pixel));
-   createAndAddGround(PhysicalObject::Point(160 * pixel, 550 * pixel));
-   createAndAddGround(PhysicalObject::Point(270 * pixel, 500 * pixel));
-   createAndAddGround(PhysicalObject::Point(380 * pixel, 550 * pixel));
-   createAndAddGround(PhysicalObject::Point(710 * pixel, 500 * pixel));
-   createAndAddGround(PhysicalObject::Point(820 * pixel, 550 * pixel));
-   createAndAddGround(PhysicalObject::Point(50 * pixel, 50 * pixel));
-   createAndAddGround(PhysicalObject::Point(160 * pixel, 100 * pixel));
+   CreateAndAddGround(PhysicalObject::Point(50 * kPixel, 500 * kPixel));
+   CreateAndAddGround(PhysicalObject::Point(160 * kPixel, 550 * kPixel));
+   CreateAndAddGround(PhysicalObject::Point(270 * kPixel, 500 * kPixel));
+   CreateAndAddGround(PhysicalObject::Point(380 * kPixel, 550 * kPixel));
+   CreateAndAddGround(PhysicalObject::Point(710 * kPixel, 500 * kPixel));
+   CreateAndAddGround(PhysicalObject::Point(820 * kPixel, 550 * kPixel));
+   CreateAndAddGround(PhysicalObject::Point(50 * kPixel, 50 * kPixel));
+   CreateAndAddGround(PhysicalObject::Point(160 * kPixel, 100 * kPixel));
 }
 
-void GameStage::createAndAddGround(const PhysicalObject::Point& point)
+void GameStage::CreateAndAddGround(const PhysicalObject::Point& point)
 {
    spGroundActor groundActor = new GroundActor(point);
    addChild(groundActor);
    scroller_.Add(groundActor.get());
 }
 
-void GameStage::createAndAddMenu()
+void GameStage::CreateAndAddMenu()
 {
-	pauseMenu_ = new PauseMenuActor();
-	addEventListener(oxygine::KeyEvent::KEY_DOWN, [pauseMenu = pauseMenu_](oxygine::Event* event)
+	pause_menu_ = new PauseMenuActor();
+	addEventListener(oxygine::KeyEvent::KEY_DOWN, [pauseMenu = pause_menu_](oxygine::Event* event)
 	{
 		if (dynamic_cast<oxygine::KeyEvent*>(event)->data->keysym.scancode == SDL_SCANCODE_ESCAPE)
 			pauseMenu->Toggle();
 	});
-	addChild(pauseMenu_);
+	addChild(pause_menu_);
 
-	endGame_ = new EndGameActor();
-	addEventListener(EndGameEvent::EVENT, [endGame = endGame_](oxygine::Event* event)
+	end_game_ = new EndGameActor();
+	addEventListener(EndGameEvent::EVENT, [end_game_ = end_game_](oxygine::Event* event)
 	{
-		endGame->show();
+      end_game_->Show();
 		oxygine::Stage::instance->removeAllEventListeners();
 	});
-	addChild(endGame_);
+	addChild(end_game_);
 
    addEventListener(MoveEvent::EVENT, [this](oxygine::Event* event)
    {
-      MoveEvent* moveEvent = dynamic_cast<MoveEvent*>(event);
-      GameEngine::getInstance().checkGraySquareActorLocation(
-         moveEvent->movedObject_, moveEvent->oldPosition_, moveEvent->newPosition_);
-      scrollIfNeeded(moveEvent->movedObject_->GetLocation());
+      MoveEvent* move_event = dynamic_cast<MoveEvent*>(event);
+      GameEngine::GetInstance().CheckGraySquareActorLocation(
+         move_event->moved_object_, move_event->old_position_, move_event->new_position_);
+      ScrollIfNeeded(move_event->moved_object_->GetLocation());
    });
    
 }
 
-void GameStage::scrollIfNeeded(const PhysicalObject::Point& locationOfActiveObject)
+void GameStage::ScrollIfNeeded(const PhysicalObject::Point& location_of_active_object)
 {
-   Distance distanceToRightBorder = pixel * getWidth() - locationOfActiveObject.x;
-   Distance distanceToLeftBorder = locationOfActiveObject.x;
-   Distance moveToLeft = distanceToRightBorder - scrollBuffer_;
-   Distance moveToRight = scrollBuffer_ - distanceToLeftBorder;
-   if (moveToLeft < 0 * pixel) scroller_.MoveBy(moveToLeft);
-   if (moveToRight > 0 * pixel) scroller_.MoveBy(moveToRight);
+   Distance distance_to_right_border = kPixel * getWidth() - location_of_active_object.x;
+   Distance distance_to_left_border = location_of_active_object.x;
+   Distance move_to_left = distance_to_right_border - kScrollBuffer;
+   Distance move_to_right = kScrollBuffer - distance_to_left_border;
+   if (move_to_left < 0 * kPixel) scroller_.MoveBy(move_to_left);
+   if (move_to_right > 0 * kPixel) scroller_.MoveBy(move_to_right);
 }
 
-bool GameStage::isPaused()
+bool GameStage::IsPaused()
 {
-	return pauseMenu_->IsShown();
+	return pause_menu_->IsShown();
 }
 
-bool GameStage::isEnded()
+bool GameStage::IsEnded()
 {
-	return endGame_->isShown();
+	return end_game_->IsShown();
 }

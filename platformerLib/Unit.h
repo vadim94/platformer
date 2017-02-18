@@ -146,7 +146,7 @@ using Time = DUnit< 0, 1 >;
 using Speed = DUnit < 1, -1 > ;
 using Acceleration = DUnit < 1, -2 > ;
 
-const Distance pixel = Distance(1);
-const Time second = Time(1);
-const Speed pixelPerSecond = pixel / second;
-const Acceleration pixelPerSquareSecond = pixel / second / second;
+const Distance kPixel = Distance(1);
+const Time kSecond = Time(1);
+const Speed kPixelPerSecond = kPixel / kSecond;
+const Acceleration kPixelPerSquareSecond = kPixel / kSecond / kSecond;

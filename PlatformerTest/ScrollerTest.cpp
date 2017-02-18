@@ -14,9 +14,9 @@ namespace PlatformerTest
 
       TEST_METHOD(ScrollByDoesScrollForAllAddedObjects)
       {
-         PhysicalObject::Point location1{ 0 * pixel, 0 * pixel };
-         PhysicalObject::Point location2{ 10 * pixel, 0 * pixel };
-         PhysicalObject::Point transitionPoint{ 10 * pixel, 0 * pixel};
+         PhysicalObject::Point location1{ 0 * kPixel, 0 * kPixel };
+         PhysicalObject::Point location2{ 10 * kPixel, 0 * kPixel };
+         PhysicalObject::Point transition_point{ 10 * kPixel, 0 * kPixel};
          PhysicalObjectForTest object1;
          PhysicalObjectForTest object2;
          object1.SetLocation(location1);
@@ -25,10 +25,10 @@ namespace PlatformerTest
          scroller.Add(&object1);
          scroller.Add(&object2);
 
-         scroller.MoveBy(transitionPoint.x);
+         scroller.MoveBy(transition_point.x);
 
-         Assert::IsTrue(object1.GetLocation() == (location1 + transitionPoint));
-         Assert::IsTrue(object2.GetLocation() == (location2 + transitionPoint));
+         Assert::IsTrue(object1.GetLocation() == (location1 + transition_point));
+         Assert::IsTrue(object2.GetLocation() == (location2 + transition_point));
       }
    };
 }

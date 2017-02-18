@@ -12,12 +12,12 @@ public:
 	oxygine::spButton AddButton(const std::string& text);
 
 private:
-	oxygine::spButton createButton(const std::string& text);
-	oxygine::spTextField createText(const std::string& text);
-	void alignButtons();
+	oxygine::spButton CreateButton(const std::string& text);
+	oxygine::spTextField CreateText(const std::string& text);
+	void AlignButtons();
 
 private:
-	static const int buttonPadding_;
+	static const int kButtonPadding;
 
 	std::vector<oxygine::spButton> buttons_;
 };

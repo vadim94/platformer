@@ -4,57 +4,57 @@
 #include "MoveEvent.h"
 #include "Stage.h"
 
-const PhysicalObject::SpeedVector GreySquareActor::jumpSpeed_{ pixelPerSecond * 0, pixelPerSecond * -400 };
-const Speed GreySquareActor::maxHorizontalSpeed_{ pixelPerSecond * 500 };
-const Acceleration GreySquareActor::horizontalMoveAcceleration_{ pixelPerSquareSecond * 2000 };
+const PhysicalObject::SpeedVector GreySquareActor::kJumpSpeed{ kPixelPerSecond * 0, kPixelPerSecond * -400 };
+const Speed GreySquareActor::kMaxHorizontalSpeed{ kPixelPerSecond * 500 };
+const Acceleration GreySquareActor::kHorizontalMoveAcceleration{ kPixelPerSquareSecond * 2000 };
 
 namespace
 {
    Time getTime(const oxygine::UpdateState& us)
    {
-      return us.dt / 1000.0 * second;
+      return us.dt / 1000.0 * kSecond;
    }
 }
 
-GreySquareActor::GreySquareActor(const PhysicalObject::Point& startPoint) : moveDirection_{ Direction::NotChanged }
+GreySquareActor::GreySquareActor(const PhysicalObject::Point& start_point) : move_direction_{ Direction::kNotChanged }
 {
    setColor(oxygine::Color::Silver);
-   SetLocation(startPoint);
+   SetLocation(start_point);
    setSize(100, 100);
 }
 
 void GreySquareActor::doUpdate(const oxygine::UpdateState& us)
 {
-   applyMoveSpeed(us);
-   Point oldLocation = GetLocation();
+   ApplyMoveSpeed(us);
+   Point old_location = GetLocation();
    CalculateNewLocation(us);
-   Point projectedLocation = GetLocation();
+   Point projected_location = GetLocation();
 
-   MoveEvent event{this, oldLocation, projectedLocation };
+   MoveEvent event{this, old_location, projected_location };
    if (oxygine::Stage::instance) // Is null during tests.
    {
       oxygine::Stage::instance->dispatchEvent(&event);
    }
 }
 
-void GreySquareActor::applyMoveSpeed(const oxygine::UpdateState& us)
+void GreySquareActor::ApplyMoveSpeed(const oxygine::UpdateState& us)
 {
    auto speed = GetSpeed();
-   const auto speedDif = getTime(us) * horizontalMoveAcceleration_.Abs();
+   const auto speed_dif = getTime(us) * kHorizontalMoveAcceleration.Abs();
 
-   if(moveDirection_ == Direction::Right)
+   if(move_direction_ == Direction::kRight)
    {
-      speed.x = std::min(maxHorizontalSpeed_.Abs(), (speed.x + speedDif));
+      speed.x = std::min(kMaxHorizontalSpeed.Abs(), (speed.x + speed_dif));
    }
-   else if (moveDirection_ == Direction::Right || moveDirection_ == Direction::Left)
+   else if (move_direction_ == Direction::kRight || move_direction_ == Direction::kLeft)
    {
-      speed.x = std::max(-(maxHorizontalSpeed_.Abs()), (speed.x - speedDif));
+      speed.x = std::max(-(kMaxHorizontalSpeed.Abs()), (speed.x - speed_dif));
    }
-   else if (moveDirection_ == Direction::NotChanged)
+   else if (move_direction_ == Direction::kNotChanged)
    {
       const int sign = speed.x.Value() >= 0 ? 1 : -1;
-      auto newModuleOfSpeed = std::max((speed.x.Abs() - speedDif.Abs()), 0 * pixelPerSecond);
-      speed.x = sign * newModuleOfSpeed;
+      auto new_module_of_speed = std::max((speed.x.Abs() - speed_dif.Abs()), 0 * kPixelPerSecond);
+      speed.x = sign * new_module_of_speed;
    }
 
    SetSpeed(speed);
@@ -63,19 +63,19 @@ void GreySquareActor::applyMoveSpeed(const oxygine::UpdateState& us)
 void GreySquareActor::Jump()
 {
    auto speed = GetSpeed();
-   if(speed.y > 0 * pixelPerSecond) speed.y *= 0;
-   SetSpeed(speed + jumpSpeed_);
+   if(speed.y > 0 * kPixelPerSecond) speed.y *= 0;
+   SetSpeed(speed + kJumpSpeed);
 }
 
 void GreySquareActor::MoveHorizontally(Direction dir)
 {
-   if (dir == Direction::NotChanged || dir == Direction::Up || dir == Direction::Down)
+   if (dir == Direction::kNotChanged || dir == Direction::kUp || dir == Direction::kDown)
       throw std::logic_error("can move only horizontally");
 
-   moveDirection_ = dir;
+   move_direction_ = dir;
 }
 
 void GreySquareActor::StopMoveHorizontally()
 {
-   moveDirection_ = Direction::NotChanged;
+   move_direction_ = Direction::kNotChanged;
 }
