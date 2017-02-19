@@ -9,14 +9,14 @@ class EndGameActor : public oxygine::ColorRectSprite
 {
 public:
 	EndGameActor();
-	void show();
-	bool isShown() const;
+	void Show();
+	bool IsShown() const;
 
 private:
-	void addButtons(spButtonAlignerActor endGameStageButtons);
-	void align(spButtonAlignerActor endGameStageButtons);
+	void AddButtons(spButtonAlignerActor end_game_stage_buttons);
+	void Align(spButtonAlignerActor end_game_stage_buttons);
 
 private:
-	static const oxygine::Color backgroundColor_;
+	static const oxygine::Color kBackgroundColor;
 };
 

@@ -4,159 +4,160 @@
 #include "EndGameEvent.h"
 #include "Stage.h"
 
-PhysicalObject::SpeedVector zeroSpeedVector_ { Speed(0), Speed(0) };
-PhysicalObject::AccelerationVector zeroAccelerationVector_ { Acceleration(0), Acceleration(0) };
+static const PhysicalObject::SpeedVector kZeroSpeedVector { Speed(0), Speed(0) };
+static const PhysicalObject::AccelerationVector kZeroAccelerationVector { Acceleration(0), Acceleration(0) };
 
 GameEngine::GameEngine()
 {
 }
 
-void GameEngine::registrateObject(PhysicalObject* actor)
+void GameEngine::RegistrateObject(PhysicalObject* actor)
 {
-	groundActors.push_back(actor);
+	ground_actors_.push_back(actor);
 }
 
-void GameEngine::checkGraySquareActorLocation(PhysicalObject* actor,
-											  const PhysicalObject::Point& oldLocation,
-											  const PhysicalObject::Point& newLocation)
+void GameEngine::CheckGraySquareActorLocation(PhysicalObject* actor,
+											  const PhysicalObject::Point& old_location,
+											  const PhysicalObject::Point& new_location)
 {
-	Direction horisontalDirection = Direction::NotChanged;
-	Direction verticalDirection = Direction::NotChanged;
+	Direction horisontal_direction = Direction::kNotChanged;
+	Direction vertical_direction = Direction::kNotChanged;
 	
 	// Check end game (fall)
-	if ((newLocation.y + actor->GetSize().y) >= oxygine::getStage()->getSize().y * pixel)
+	if ((new_location.y + actor->GetSize().y) >= oxygine::getStage()->getSize().y * kPixel)
 	{
 		EndGameEvent ev;
 		oxygine::Stage::instance->dispatchEvent(&ev);
 	}
 
-	if (oldLocation.x < newLocation.x) {
-		horisontalDirection = Direction::Right;
+	if (old_location.x < new_location.x) {
+		horisontal_direction = Direction::kRight;
 	}
-	else if (oldLocation.x > newLocation.x) {
-		horisontalDirection = Direction::Left;
-	}
-
-	if (oldLocation.y < newLocation.y) {
-		verticalDirection = Direction::Down;
-	}
-	else if (oldLocation.y > newLocation.y) {
-		verticalDirection = Direction::Up;
+	else if (old_location.x > new_location.x) {
+		horisontal_direction = Direction::kLeft;
 	}
 
-	Distance newX(actor->GetLocation().x.Value()), newY(actor->GetLocation().y.Value());
-	bool isTouched = false;
+	if (old_location.y < new_location.y) {
+		vertical_direction = Direction::kDown;
+	}
+	else if (old_location.y > new_location.y) {
+		vertical_direction = Direction::kUp;
+	}
 
-	Distance yActorOldUpperBound = oldLocation.y;
-   Distance yActorNewUpperBound = newLocation.y;
-   Distance yActorOldLowerBound = oldLocation.y + actor->GetSize().y;
-   Distance yActorNewLowerBound = newLocation.y + actor->GetSize().y;
-   Distance xActorLeftBound = newLocation.x;
-   Distance xActorRightBound = newLocation.x + actor->GetSize().x;
-   Distance xActorOldLeftBound = oldLocation.x;
-   Distance xActorOldRightBound = oldLocation.x + actor->GetSize().x;
+   Distance new_x(actor->GetLocation().x.Value());
+   Distance new_y(actor->GetLocation().y.Value());
+	bool is_touched = false;
 
-	for (PhysicalObject* barrier: groundActors)
+	Distance actor_old_upper_bound = old_location.y;
+   Distance actor_new_upper_bound = new_location.y;
+   Distance actor_old_lower_bound = old_location.y + actor->GetSize().y;
+   Distance actor_new_lower_bound = new_location.y + actor->GetSize().y;
+   Distance actor_left_bound = new_location.x;
+   Distance actor_right_bound = new_location.x + actor->GetSize().x;
+   Distance actor_old_left_bound = old_location.x;
+   Distance actor_old_right_bound = old_location.x + actor->GetSize().x;
+
+	for (PhysicalObject* barrier: ground_actors_)
 	{
-      Distance xBarrierRightBound = barrier->GetLocation().x + barrier->GetSize().x;
-      Distance xBarrierLeftBound = barrier->GetLocation().x;
-      Distance yBarrierUpperBound = barrier->GetLocation().y;
-      Distance yBarrierLowerBound = barrier->GetLocation().y + barrier->GetSize().y;
+      Distance barrier_right_bound = barrier->GetLocation().x + barrier->GetSize().x;
+      Distance barrier_left_bound = barrier->GetLocation().x;
+      Distance barrier_upper_bound = barrier->GetLocation().y;
+      Distance barrier_lower_bound = barrier->GetLocation().y + barrier->GetSize().y;
 
 		// Set Y value
-		switch (verticalDirection)
+		switch (vertical_direction)
 		{
-		case Direction::Up:
-			if (yBarrierLowerBound > yActorNewUpperBound &&
-				yBarrierLowerBound <= yActorOldUpperBound &&
-				((xActorLeftBound >= xBarrierLeftBound &&
-				xActorLeftBound <= xBarrierRightBound) ||
-				(xActorRightBound <= xBarrierRightBound &&
-				xActorRightBound >= xBarrierLeftBound)))
+		case Direction::kUp:
+			if (barrier_lower_bound > actor_new_upper_bound &&
+				barrier_lower_bound <= actor_old_upper_bound &&
+				((actor_left_bound >= barrier_left_bound &&
+				actor_left_bound <= barrier_right_bound) ||
+				(actor_right_bound <= barrier_right_bound &&
+				actor_right_bound >= barrier_left_bound)))
 			{
-				isTouched = true;
-				if (newY < yBarrierLowerBound)
+				is_touched = true;
+				if (new_y < barrier_lower_bound)
 				{
-					newY = yBarrierLowerBound;
+					new_y = barrier_lower_bound;
 				}
 			}
 			break;
-		case Direction::Down:
-			if (yBarrierUpperBound < yActorNewLowerBound &&
-				yBarrierUpperBound >= yActorOldLowerBound &&
-				((xActorLeftBound >= xBarrierLeftBound &&
-			    xActorLeftBound <= xBarrierRightBound) ||
-				(xActorRightBound <= xBarrierRightBound &&
-				xActorRightBound >= xBarrierLeftBound) || 
-				(xActorLeftBound < xBarrierLeftBound &&
-				xActorRightBound > xBarrierRightBound)))
+		case Direction::kDown:
+			if (barrier_upper_bound < actor_new_lower_bound &&
+				barrier_upper_bound >= actor_old_lower_bound &&
+				((actor_left_bound >= barrier_left_bound &&
+			    actor_left_bound <= barrier_right_bound) ||
+				(actor_right_bound <= barrier_right_bound &&
+				actor_right_bound >= barrier_left_bound) || 
+				(actor_left_bound < barrier_left_bound &&
+				actor_right_bound > barrier_right_bound)))
 			{
-				isTouched = true;
-				if (newY > yBarrierUpperBound - actor->GetSize().y)
+				is_touched = true;
+				if (new_y > barrier_upper_bound - actor->GetSize().y)
 				{
-					newY = yBarrierUpperBound - actor->GetSize().y;
+					new_y = barrier_upper_bound - actor->GetSize().y;
 				}
 			}
 			break;
 		}
 
 		// Set X value
-		switch (horisontalDirection)
+		switch (horisontal_direction)
 		{
-		case Direction::Right:
-			if (xBarrierLeftBound < xActorRightBound &&
-				xBarrierLeftBound >= xActorOldRightBound &&
-				((yActorNewUpperBound >= yBarrierUpperBound &&
-				yActorNewUpperBound <= yBarrierLowerBound) ||
-				(yActorNewLowerBound >= yBarrierUpperBound &&
-				yActorNewLowerBound <= yBarrierLowerBound) ||
-				(yActorNewUpperBound < yBarrierUpperBound &&
-				yActorNewLowerBound > yBarrierLowerBound)))
+		case Direction::kRight:
+			if (barrier_left_bound < actor_right_bound &&
+				barrier_left_bound >= actor_old_right_bound &&
+				((actor_new_upper_bound >= barrier_upper_bound &&
+				actor_new_upper_bound <= barrier_lower_bound) ||
+				(actor_new_lower_bound >= barrier_upper_bound &&
+				actor_new_lower_bound <= barrier_lower_bound) ||
+				(actor_new_upper_bound < barrier_upper_bound &&
+				actor_new_lower_bound > barrier_lower_bound)))
 			{
-				isTouched = true;
-				if (newX > (xBarrierLeftBound - actor->GetSize().x))
+				is_touched = true;
+				if (new_x > (barrier_left_bound - actor->GetSize().x))
 				{
-					newX = xBarrierLeftBound - actor->GetSize().x;
+					new_x = barrier_left_bound - actor->GetSize().x;
 				}
 			}
 			break;
-		case Direction::Left:
-			if (xBarrierRightBound > xActorLeftBound &&
-				xBarrierRightBound <= xActorOldLeftBound &&
-				((yActorNewUpperBound >= yBarrierUpperBound &&
-				yActorNewUpperBound <= yBarrierLowerBound) ||
-				(yActorNewLowerBound >= yBarrierUpperBound &&
-				yActorNewLowerBound <= yBarrierLowerBound) ||
-				(yActorNewUpperBound < yBarrierUpperBound &&
-				yActorNewLowerBound > yBarrierLowerBound)))
+		case Direction::kLeft:
+			if (barrier_right_bound > actor_left_bound &&
+				barrier_right_bound <= actor_old_left_bound &&
+				((actor_new_upper_bound >= barrier_upper_bound &&
+				actor_new_upper_bound <= barrier_lower_bound) ||
+				(actor_new_lower_bound >= barrier_upper_bound &&
+				actor_new_lower_bound <= barrier_lower_bound) ||
+				(actor_new_upper_bound < barrier_upper_bound &&
+				actor_new_lower_bound > barrier_lower_bound)))
 			{
-				isTouched = true;
-				if (newX < xBarrierRightBound)
+				is_touched = true;
+				if (new_x < barrier_right_bound)
 				{
-					newX = xBarrierRightBound;
+					new_x = barrier_right_bound;
 				}
 			}
 			break;
 		}
 	}
 
-	if (isTouched)
+	if (is_touched)
 	{
-		PhysicalObject::Point newLocation(newX, newY);
-		actor->SetLocation(newLocation);
-		actor->SetSpeed(zeroSpeedVector_);
-		actor->SetAcceleration(zeroAccelerationVector_);
+		PhysicalObject::Point new_location(new_x, new_y);
+		actor->SetLocation(new_location);
+		actor->SetSpeed(kZeroSpeedVector);
+		actor->SetAcceleration(kZeroAccelerationVector);
 	}
 
 	return;
 }
 
-void GameEngine::reset()
+void GameEngine::Reset()
 {
-	groundActors.clear();
+	ground_actors_.clear();
 }
 
-GameEngine& GameEngine::getInstance()
+GameEngine& GameEngine::GetInstance()
 {
 	static GameEngine instance;
 	return instance;

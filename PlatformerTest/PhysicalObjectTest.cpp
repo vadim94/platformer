@@ -18,48 +18,48 @@ namespace PlatformerTest
       {
          PhysicalObjectForTest object;
 
-         Assert::IsTrue(zeroPoint == object.GetLocation());
-         Assert::IsTrue(zeroSpeed == object.GetSpeed());
+         Assert::IsTrue(kZeroPoint == object.GetLocation());
+         Assert::IsTrue(kZeroSpeed == object.GetSpeed());
       }
 
       TEST_METHOD(ConstructedWithLocation)
       {
-         PhysicalObjectForTest object(someLocation);
+         PhysicalObjectForTest object(kSomeLocation);
 
-         Assert::IsTrue(someLocation == object.GetLocation());
+         Assert::IsTrue(kSomeLocation == object.GetLocation());
       }
 
       TEST_METHOD(MovesWhenNonZeroSpeed)
       {
-         PhysicalObject::SetGravity(zeroAccelerationVector);
+         PhysicalObject::SetGravity(kZeroAccelerationVector);
          PhysicalObjectForTest object;
-         object.SetSpeed(oneUnitPerSecondHorizontally);
+         object.SetSpeed(kOneUnitPerSecondHorizontally);
 
-         object.CalculateNewLocation(oneSecondUpdateStruct);
+         object.CalculateNewLocation(kOneSecondUpdateStruct);
 
-         Assert::IsTrue(oneUnitHorisontallyPoint == object.GetLocation());
+         Assert::IsTrue(kOneUnitHorisontallyPoint == object.GetLocation());
       }
 
       TEST_METHOD(MovesWithGravity)
       {
-         PhysicalObject::SetGravity(oneUnitPerSecondSquaredVertically);
+         PhysicalObject::SetGravity(kOneUnitPerSecondSquaredVertically);
          PhysicalObjectForTest object;
-         object.SetSpeed(oneUnitPerSecondHorizontally);
+         object.SetSpeed(kOneUnitPerSecondHorizontally);
 
-         object.CalculateNewLocation(oneSecondUpdateStruct);
+         object.CalculateNewLocation(kOneSecondUpdateStruct);
 
-         Assert::IsTrue(oneUnitHorizontalyAndVertically == object.GetLocation());
+         Assert::IsTrue(kOneUnitHorizontalyAndVertically == object.GetLocation());
       }
 
       TEST_METHOD(MovesWithGravityAndCustomAcceleration)
       {
-         PhysicalObject::SetGravity(oneUnitPerSecondSquaredVertically);
+         PhysicalObject::SetGravity(kOneUnitPerSecondSquaredVertically);
          PhysicalObjectForTest object;
-         object.SetAcceleration(oneUnitPerSecondSquaredHorizontally);
+         object.SetAcceleration(kOneUnitPerSecondSquaredHorizontally);
 
-         object.CalculateNewLocation(oneSecondUpdateStruct);
+         object.CalculateNewLocation(kOneSecondUpdateStruct);
 
-         Assert::IsTrue(oneUnitHorizontalyAndVertically == object.GetLocation());
+         Assert::IsTrue(kOneUnitHorizontalyAndVertically == object.GetLocation());
       }
 
    };

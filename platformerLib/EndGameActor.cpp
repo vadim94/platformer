@@ -7,28 +7,28 @@
 #include "core/oxygine.h"
 #include "DebugActor.h"
 
-const oxygine::Color EndGameActor::backgroundColor_ = oxygine::Color(255, 0, 0, 100);
+const oxygine::Color EndGameActor::kBackgroundColor = oxygine::Color(255, 0, 0, 100);
 
 EndGameActor::EndGameActor()
 {
 	setVisible(false);
 	setSize(oxygine::getStage()->getSize());
-	setColor(backgroundColor_);
+	setColor(kBackgroundColor);
 
-	spButtonAlignerActor endGameStageButtons = new ButtonAlignerActor();
-	addButtons(endGameStageButtons);
-	align(endGameStageButtons);
+	spButtonAlignerActor end_game_stage_buttons = new ButtonAlignerActor();
+	AddButtons(end_game_stage_buttons);
+	Align(end_game_stage_buttons);
 }
 
-void EndGameActor::addButtons(spButtonAlignerActor endGameStageButtons)
+void EndGameActor::AddButtons(spButtonAlignerActor end_game_stage_buttons)
 {
-	endGameStageButtons->AddButton("Restart")
+	end_game_stage_buttons->AddButton("Restart")
 		->addEventListener(oxygine::TouchEvent::CLICK, [this](oxygine::Event*)
 	{
 		oxygine::Stage::instance = new GameStage(getSize());
 		oxygine::DebugActor::show();
 	});
-	endGameStageButtons->AddButton("Main menu")
+	end_game_stage_buttons->AddButton("Main menu")
 		->addEventListener(oxygine::TouchEvent::CLICK, [](oxygine::Event*)
 	{ 
 		oxygine::Stage::instance = new MainMenuStage(oxygine::core::getDisplaySize());
@@ -36,20 +36,20 @@ void EndGameActor::addButtons(spButtonAlignerActor endGameStageButtons)
 	});
 }
 
-void EndGameActor::align(spButtonAlignerActor endGameStageButtons)
+void EndGameActor::Align(spButtonAlignerActor end_game_stage_buttons)
 {
-	const oxygine::Vector2 buttonFormatterTopLeft = (getSize() - endGameStageButtons->getSize()) / 2;
-	endGameStageButtons->setPosition(buttonFormatterTopLeft);
-	addChild(endGameStageButtons);
+	const oxygine::Vector2 button_formatter_top_left = (getSize() - end_game_stage_buttons->getSize()) / 2;
+	end_game_stage_buttons->setPosition(button_formatter_top_left);
+	addChild(end_game_stage_buttons);
 }
 
-void EndGameActor::show()
+void EndGameActor::Show()
 {
 	oxygine::getStage()->getClock()->pause();
 	setVisible(true);
 }
 
-bool EndGameActor::isShown() const
+bool EndGameActor::IsShown() const
 {
 	return getVisible();
 }

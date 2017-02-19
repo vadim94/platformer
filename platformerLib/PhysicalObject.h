@@ -16,31 +16,30 @@ public:
    PhysicalObject() = default;
    virtual ~PhysicalObject() = default;
 
-   void SetAcceleration(const AccelerationVector& newAcceleration);
+   void SetAcceleration(const AccelerationVector& new_acceleration);
    const AccelerationVector& GetAcceleration();
 
-   void SetSpeed(const SpeedVector& newSpeed);
+   void SetSpeed(const SpeedVector& new_speed);
    const SpeedVector& GetSpeed() const;
 
-   void CalculateNewLocation(const oxygine::UpdateState& updateState);
+   void CalculateNewLocation(const oxygine::UpdateState& update_state);
 
    virtual Point GetLocation() const = 0;
-   virtual void SetLocation(const Point& newLocation) = 0;
+   virtual void SetLocation(const Point& new_location) = 0;
    virtual Size GetSize() const = 0;
    virtual void SetSize(const Size& size) = 0;
 
    static const AccelerationVector& GetGravity();
-   static void SetGravity(const AccelerationVector& newGravity);
+   static void SetGravity(const AccelerationVector& new_gravity);
 
 private:
 
-   SpeedVector updateSpeed(const oxygine::UpdateState& updateState);
-   Point updatePosition(const oxygine::UpdateState& updateState, const SpeedVector& newSpeed);
+   SpeedVector UpdateSpeed(const oxygine::UpdateState& update_state);
+   Point UpdatePosition(const oxygine::UpdateState& update_state, const SpeedVector& new_speed);
 
 private:
    SpeedVector speed_;
    AccelerationVector acceleration_;
-
-   static AccelerationVector gravityAcceleration_;
+   static AccelerationVector gravity_acceleration_;
 };
 

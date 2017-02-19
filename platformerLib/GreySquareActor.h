@@ -8,24 +8,24 @@ DECLARE_SMART(GreySquareActor, spGreySquareActor);
 class GreySquareActor : public ActorBase
 {
 public:
-   GreySquareActor(const PhysicalObject::Point& startPoint);
+   GreySquareActor(const PhysicalObject::Point& start_point);
    void Jump();
    void MoveHorizontally(Direction dir);
    void StopMoveHorizontally();
 
    virtual void doUpdate(const oxygine::UpdateState& us) override;
 
-   static const Speed& GetMaxHorizontalSpeed() { return maxHorizontalSpeed_; }
-   static const Acceleration& GetMaxHorizontalMoveAcceleration() { return horizontalMoveAcceleration_; }
+   static const Speed& GetMaxHorizontalSpeed() { return kMaxHorizontalSpeed; }
+   static const Acceleration& GetMaxHorizontalMoveAcceleration() { return kHorizontalMoveAcceleration; }
 
 private:
-   void applyMoveSpeed(const oxygine::UpdateState& us);
+   void ApplyMoveSpeed(const oxygine::UpdateState& us);
 
 private:
-   static const PhysicalObject::SpeedVector jumpSpeed_;
-   static const Speed maxHorizontalSpeed_;
-   static const Acceleration horizontalMoveAcceleration_;
+   static const PhysicalObject::SpeedVector kJumpSpeed;
+   static const Speed kMaxHorizontalSpeed;
+   static const Acceleration kHorizontalMoveAcceleration;
 
-   Direction moveDirection_;
+   Direction move_direction_;
 };
 

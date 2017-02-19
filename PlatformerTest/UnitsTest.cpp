@@ -13,11 +13,11 @@ namespace
 {
    using Area = DUnit < 2, 0 > ; // Square pixel.
 
-   double epsilon = 0.000001;
-   double lessThenEpsilon = epsilon / 10;
-   const Distance littleMoreThenPixel(pixel.Value() + lessThenEpsilon);
-   const Distance twoPixels(2);
-   const Distance zeroDistance(0);
+   const double kEpsilon = 0.000001;
+   const double kLessThenEpsilon = kEpsilon / 10;
+   const Distance kLittleMoreThenPixel{ kPixel.Value() + kLessThenEpsilon };
+   const Distance kTwoPixels{ 2 };
+   const Distance kZeroDistance{ 0 };
 }
 
 namespace PlatformerTest
@@ -28,69 +28,69 @@ namespace PlatformerTest
 
       TEST_METHOD(AreEqualTest)
       {
-         Assert::IsTrue(pixel.AreEqual(pixel, epsilon));
-         Assert::IsTrue(pixel.AreEqual(littleMoreThenPixel, epsilon));
-         Assert::IsFalse(pixel.AreEqual(twoPixels, epsilon));
+         Assert::IsTrue(kPixel.AreEqual(kPixel, kEpsilon));
+         Assert::IsTrue(kPixel.AreEqual(kLittleMoreThenPixel, kEpsilon));
+         Assert::IsFalse(kPixel.AreEqual(kTwoPixels, kEpsilon));
       }
 
       TEST_METHOD(DefaultConstructedUnit)
       {
          Distance dist;
 
-         Assert::IsTrue(dist.AreEqual(zeroDistance, epsilon));
+         Assert::IsTrue(dist.AreEqual(kZeroDistance, kEpsilon));
       }
 
       TEST_METHOD(UnitMultiplicationByValue)
       {
-         auto unit = pixel;
+         auto unit = kPixel;
          unit *= 2;
 
-         Assert::IsTrue(unit.AreEqual(twoPixels, epsilon));
-         Assert::IsTrue((pixel * 2).AreEqual(twoPixels, epsilon));
-         Assert::IsTrue((2 * pixel).AreEqual(twoPixels, epsilon));
+         Assert::IsTrue(unit.AreEqual(kTwoPixels, kEpsilon));
+         Assert::IsTrue((kPixel * 2).AreEqual(kTwoPixels, kEpsilon));
+         Assert::IsTrue((2 * kPixel).AreEqual(kTwoPixels, kEpsilon));
       }
 
       TEST_METHOD(UnitDivisionByValue)
       {
-         auto unit = twoPixels;
+         auto unit = kTwoPixels;
          unit /= 2;
 
-         Assert::IsTrue(unit.AreEqual(pixel, epsilon));
-         Assert::IsTrue((twoPixels / 2).AreEqual(pixel, epsilon));
+         Assert::IsTrue(unit.AreEqual(kPixel, kEpsilon));
+         Assert::IsTrue((kTwoPixels / 2).AreEqual(kPixel, kEpsilon));
       }
 
       TEST_METHOD(UnitsSum)
       {
-         auto unit = pixel;
-         unit += pixel;
+         auto unit = kPixel;
+         unit += kPixel;
 
-         Assert::IsTrue(unit.AreEqual(twoPixels, epsilon));
-         Assert::IsTrue((pixel+pixel).AreEqual(twoPixels, epsilon));
+         Assert::IsTrue(unit.AreEqual(kTwoPixels, kEpsilon));
+         Assert::IsTrue((kPixel+kPixel).AreEqual(kTwoPixels, kEpsilon));
       }
 
       TEST_METHOD(UnitsSubstract)
       {
-         auto unit = twoPixels;
-         unit -= pixel;
+         auto unit = kTwoPixels;
+         unit -= kPixel;
 
-         Assert::IsTrue(unit.AreEqual(pixel, epsilon));
-         Assert::IsTrue((twoPixels - pixel).AreEqual(pixel, epsilon));
+         Assert::IsTrue(unit.AreEqual(kPixel, kEpsilon));
+         Assert::IsTrue((kTwoPixels - kPixel).AreEqual(kPixel, kEpsilon));
       }
 
       TEST_METHOD(UnitMuliplicationByUnit)
       {
-         auto unit = pixel * twoPixels;
+         auto unit = kPixel * kTwoPixels;
 
          Assert::IsTrue(std::is_same<decltype(unit), Area>::value);
-         Assert::IsTrue(unit.AreEqual(Area(2), epsilon));
+         Assert::IsTrue(unit.AreEqual(Area(2), kEpsilon));
       }
 
       TEST_METHOD(UnitDivisionByUnit)
       {
-         auto unit = pixel / second;
+         auto unit = kPixel / kSecond;
 
          Assert::IsTrue(std::is_same<decltype(unit), Speed>::value);
-         Assert::IsTrue(unit.AreEqual(Speed(1), epsilon));
+         Assert::IsTrue(unit.AreEqual(Speed(1), kEpsilon));
       }
    };
 }

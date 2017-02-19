@@ -14,6 +14,6 @@ public:
    void MoveBy(const Distance& distance);
 
 private:
-   std::vector<PhysicalObject*> environmentObjects_;
+   std::vector<PhysicalObject*> environment_objects_;
 };
 

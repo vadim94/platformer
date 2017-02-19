@@ -7,13 +7,13 @@ void ActorBase::SetLocation(const Point& location)
 PhysicalObject::Point ActorBase::GetLocation() const
 {
    auto position = getPosition();
-   return Point(pixel * position.x, pixel * position.y);
+   return Point(kPixel * position.x, kPixel * position.y);
 }
 
 PhysicalObject::Size ActorBase::GetSize() const
 {
    auto size = getSize();
-   return{ size.x * pixel, size.y * pixel };
+   return{ size.x * kPixel, size.y * kPixel };
 }
 void ActorBase::SetSize(const Size& size)
 {

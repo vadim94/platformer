@@ -2,9 +2,9 @@
 
 enum class Direction
 {
-	NotChanged,
-	Up,
-	Right,
-	Down,
-	Left
+	kNotChanged,
+	kUp,
+	kRight,
+	kDown,
+	kLeft
 };

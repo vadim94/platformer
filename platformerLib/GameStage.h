@@ -13,18 +13,18 @@ public:
 	GameStage(const oxygine::Vector2& size);
 
 private:
-	void createAndAddSquare();
-	void createAndAddAllGround();
-   void createAndAddGround(const PhysicalObject::Point& point);
-	void createAndAddMenu();
-	bool isPaused();
-	bool isEnded();
-   void scrollIfNeeded(const PhysicalObject::Point& locationOfActiveObject);
+	void CreateAndAddSquare();
+	void CreateAndAddAllGround();
+   void CreateAndAddGround(const PhysicalObject::Point& point);
+	void CreateAndAddMenu();
+	bool IsPaused();
+	bool IsEnded();
+   void ScrollIfNeeded(const PhysicalObject::Point& location_of_active_object);
 private:
-	spPauseMenuActor pauseMenu_;
-	spEndGameActor endGame_;
+	spPauseMenuActor pause_menu_;
+	spEndGameActor end_game_;
    EnvironmentScroller scroller_;
 
-   static const Distance scrollBuffer_;
+   static const Distance kScrollBuffer;
 };
 

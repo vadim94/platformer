@@ -9,7 +9,7 @@ public:
 	MainMenuStage(const oxygine::Vector2& size);
 
 private:
-	void addButtons(spButtonAlignerActor mainMenuButtons);
-	void align(spButtonAlignerActor mainMenuButtons);
+	void AddButtons(spButtonAlignerActor main_menu_buttons);
+	void Align(spButtonAlignerActor main_menu_buttons);
 };
 

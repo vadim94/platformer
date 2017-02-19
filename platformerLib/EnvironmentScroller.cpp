@@ -2,13 +2,13 @@
 
 void EnvironmentScroller::Add(PhysicalObject* object)
 {
-   environmentObjects_.push_back(object);
+   environment_objects_.push_back(object);
 }
 
 void EnvironmentScroller::MoveBy(const Distance& distance)
 {
-   const PhysicalObject::Point transition{ distance, pixel * 0 };
-   for (auto object : environmentObjects_)
+   const PhysicalObject::Point transition{ distance, kPixel * 0 };
+   for (auto object : environment_objects_)
    {
       object->SetLocation(object->GetLocation() + transition);
    }
