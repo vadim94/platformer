@@ -44,25 +44,25 @@ void GameEngine::CheckGraySquareActorLocation(PhysicalObject* actor,
 		vertical_direction = Direction::kUp;
 	}
 
-   Distance new_x(actor->GetLocation().x.Value());
-   Distance new_y(actor->GetLocation().y.Value());
+	Distance new_x(actor->GetLocation().x.Value());
+	Distance new_y(actor->GetLocation().y.Value());
 	bool is_touched = false;
 
 	Distance actor_old_upper_bound = old_location.y;
-   Distance actor_new_upper_bound = new_location.y;
-   Distance actor_old_lower_bound = old_location.y + actor->GetSize().y;
-   Distance actor_new_lower_bound = new_location.y + actor->GetSize().y;
-   Distance actor_left_bound = new_location.x;
-   Distance actor_right_bound = new_location.x + actor->GetSize().x;
-   Distance actor_old_left_bound = old_location.x;
-   Distance actor_old_right_bound = old_location.x + actor->GetSize().x;
+	Distance actor_new_upper_bound = new_location.y;
+	Distance actor_old_lower_bound = old_location.y + actor->GetSize().y;
+	Distance actor_new_lower_bound = new_location.y + actor->GetSize().y;
+	Distance actor_left_bound = new_location.x;
+	Distance actor_right_bound = new_location.x + actor->GetSize().x;
+	Distance actor_old_left_bound = old_location.x;
+	Distance actor_old_right_bound = old_location.x + actor->GetSize().x;
 
 	for (PhysicalObject* barrier: ground_actors_)
 	{
-      Distance barrier_right_bound = barrier->GetLocation().x + barrier->GetSize().x;
-      Distance barrier_left_bound = barrier->GetLocation().x;
-      Distance barrier_upper_bound = barrier->GetLocation().y;
-      Distance barrier_lower_bound = barrier->GetLocation().y + barrier->GetSize().y;
+		Distance barrier_right_bound = barrier->GetLocation().x + barrier->GetSize().x;
+		Distance barrier_left_bound = barrier->GetLocation().x;
+		Distance barrier_upper_bound = barrier->GetLocation().y;
+		Distance barrier_lower_bound = barrier->GetLocation().y + barrier->GetSize().y;
 
 		// Set Y value
 		switch (vertical_direction)
@@ -71,9 +71,11 @@ void GameEngine::CheckGraySquareActorLocation(PhysicalObject* actor,
 			if (barrier_lower_bound > actor_new_upper_bound &&
 				barrier_lower_bound <= actor_old_upper_bound &&
 				((actor_left_bound >= barrier_left_bound &&
-				actor_left_bound <= barrier_right_bound) ||
+				actor_left_bound < barrier_right_bound) ||
 				(actor_right_bound <= barrier_right_bound &&
-				actor_right_bound >= barrier_left_bound)))
+				actor_right_bound > barrier_left_bound) ||
+				(actor_left_bound < barrier_left_bound &&
+				actor_right_bound > barrier_right_bound)))
 			{
 				is_touched = true;
 				if (new_y < barrier_lower_bound)
@@ -86,9 +88,9 @@ void GameEngine::CheckGraySquareActorLocation(PhysicalObject* actor,
 			if (barrier_upper_bound < actor_new_lower_bound &&
 				barrier_upper_bound >= actor_old_lower_bound &&
 				((actor_left_bound >= barrier_left_bound &&
-			    actor_left_bound <= barrier_right_bound) ||
+				actor_left_bound < barrier_right_bound) ||
 				(actor_right_bound <= barrier_right_bound &&
-				actor_right_bound >= barrier_left_bound) || 
+				actor_right_bound > barrier_left_bound) || 
 				(actor_left_bound < barrier_left_bound &&
 				actor_right_bound > barrier_right_bound)))
 			{
@@ -108,8 +110,8 @@ void GameEngine::CheckGraySquareActorLocation(PhysicalObject* actor,
 			if (barrier_left_bound < actor_right_bound &&
 				barrier_left_bound >= actor_old_right_bound &&
 				((actor_new_upper_bound >= barrier_upper_bound &&
-				actor_new_upper_bound <= barrier_lower_bound) ||
-				(actor_new_lower_bound >= barrier_upper_bound &&
+				actor_new_upper_bound < barrier_lower_bound) ||
+				(actor_new_lower_bound > barrier_upper_bound &&
 				actor_new_lower_bound <= barrier_lower_bound) ||
 				(actor_new_upper_bound < barrier_upper_bound &&
 				actor_new_lower_bound > barrier_lower_bound)))
@@ -125,8 +127,8 @@ void GameEngine::CheckGraySquareActorLocation(PhysicalObject* actor,
 			if (barrier_right_bound > actor_left_bound &&
 				barrier_right_bound <= actor_old_left_bound &&
 				((actor_new_upper_bound >= barrier_upper_bound &&
-				actor_new_upper_bound <= barrier_lower_bound) ||
-				(actor_new_lower_bound >= barrier_upper_bound &&
+				actor_new_upper_bound < barrier_lower_bound) ||
+				(actor_new_lower_bound > barrier_upper_bound &&
 				actor_new_lower_bound <= barrier_lower_bound) ||
 				(actor_new_upper_bound < barrier_upper_bound &&
 				actor_new_lower_bound > barrier_lower_bound)))
