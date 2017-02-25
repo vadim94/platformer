@@ -44,7 +44,7 @@
     <ClCompile Include="SquareActorTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ScrollerTest.cpp">
+    <ClCompile Include="GameLevelTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -24,8 +24,8 @@
     <ClInclude Include="Direction.h" />
     <ClInclude Include="EndGameActor.h" />
     <ClInclude Include="EndGameEvent.h" />
-    <ClInclude Include="EnvironmentScroller.h" />
     <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="GameLevelActor.h" />
     <ClInclude Include="GameStage.h" />
     <ClInclude Include="GreySquareActor.h" />
     <ClInclude Include="GroundActor.h" />
@@ -40,8 +40,8 @@
     <ClCompile Include="ActorBase.cpp" />
     <ClCompile Include="ButtonAlignerActor.cpp" />
     <ClCompile Include="EndGameActor.cpp" />
-    <ClCompile Include="EnvironmentScroller.cpp" />
     <ClCompile Include="GameEngine.cpp" />
+    <ClCompile Include="GameLevelActor.cpp" />
     <ClCompile Include="GameStage.cpp" />
     <ClCompile Include="GreySquareActor.cpp" />
     <ClCompile Include="GroundActor.cpp" />

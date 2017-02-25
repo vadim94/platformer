@@ -13,12 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Actors">
+      <UniqueIdentifier>{01152d6b-c0c8-4120-9b75-0fa6610504c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Stages">
+      <UniqueIdentifier>{e094926b-0a9a-469b-8f51-834ceb2d3876}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Events">
+      <UniqueIdentifier>{7c74a75e-1ac0-4aa6-a740-490d14354551}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Actors">
+      <UniqueIdentifier>{d4e7b8e1-c06f-4656-9d03-c8aaa8f0bce9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Stages">
+      <UniqueIdentifier>{62e57ac0-b6e4-43ed-bb02-bdc88a783f77}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Unit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ButtonAlignerActor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Direction.h">
@@ -27,63 +39,48 @@
     <ClInclude Include="GameEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameStage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GreySquareActor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GroundActor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenuStage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PauseMenuActor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PhysicalObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ResourceSingleton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EndGameActor.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="ActorBase.h">
+      <Filter>Header Files\Actors</Filter>
     </ClInclude>
-    <ClInclude Include="EndGameEvent.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="ButtonAlignerActor.h">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="EndGameActor.h">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="GreySquareActor.h">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="GroundActor.h">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseMenuActor.h">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuStage.h">
+      <Filter>Header Files\Stages</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStage.h">
+      <Filter>Header Files\Stages</Filter>
     </ClInclude>
     <ClInclude Include="MoveEvent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
-    <ClInclude Include="EnvironmentScroller.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="EndGameEvent.h">
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
-    <ClInclude Include="ActorBase.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GameLevelActor.h">
+      <Filter>Header Files\Actors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ButtonAlignerActor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameEngine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameStage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GreySquareActor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GroundActor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenuStage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PauseMenuActor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PhysicalObject.cpp">
@@ -92,14 +89,32 @@
     <ClCompile Include="ResourceSingleton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EndGameActor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EnvironmentScroller.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ActorBase.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonAlignerActor.cpp">
+      <Filter>Source Files\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="EndGameActor.cpp">
+      <Filter>Source Files\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="GreySquareActor.cpp">
+      <Filter>Source Files\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="GroundActor.cpp">
+      <Filter>Source Files\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseMenuActor.cpp">
+      <Filter>Source Files\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStage.cpp">
+      <Filter>Source Files\Stages</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuStage.cpp">
+      <Filter>Source Files\Stages</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLevelActor.cpp">
+      <Filter>Source Files\Actors</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -3,9 +3,9 @@
 
 #include "PauseMenuActor.h"
 #include "EndGameActor.h"
-#include "EnvironmentScroller.h"
 #include "Unit.h"
 #include "PhysicalObject.h"
+#include "GameLevelActor.h"
 
 class GameStage : public oxygine::Stage
 {
@@ -19,12 +19,9 @@ private:
 	void CreateAndAddMenu();
 	bool IsPaused();
 	bool IsEnded();
-   void ScrollIfNeeded(const PhysicalObject::Point& location_of_active_object);
 private:
 	spPauseMenuActor pause_menu_;
 	spEndGameActor end_game_;
-   EnvironmentScroller scroller_;
-
-   static const Distance kScrollBuffer;
+   spGameLevelActor game_level_;
 };
 
