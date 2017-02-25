@@ -63,8 +63,9 @@ void GreySquareActor::ApplyMoveSpeed(const oxygine::UpdateState& us)
 void GreySquareActor::Jump()
 {
    auto speed = GetSpeed();
-   if(speed.y > 0 * kPixelPerSecond) speed.y *= 0;
-   SetSpeed(speed + kJumpSpeed);
+   if (speed.y == 0 * kPixelPerSecond) {
+	   SetSpeed(speed + kJumpSpeed);
+   }
 }
 
 void GreySquareActor::MoveHorizontally(Direction dir)
