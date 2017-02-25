@@ -30,9 +30,10 @@ void GreySquareActor::doUpdate(const oxygine::UpdateState& us)
    CalculateNewLocation(us);
    Point projected_location = GetLocation();
 
-   MoveEvent event{this, old_location, projected_location };
-   if (oxygine::Stage::instance) // Is null during tests.
+   // Stage is null during tests.
+   if (oxygine::Stage::instance)
    {
+      MoveEvent event{this, old_location, projected_location };
       oxygine::Stage::instance->dispatchEvent(&event);
    }
 }

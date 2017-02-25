@@ -17,10 +17,10 @@
 #include "EndGameEvent.h"
 #include "MoveEvent.h"
 
-const Distance GameStage::kScrollBuffer = kPixel * 200;
-
-GameStage::GameStage(const oxygine::Vector2& size) : oxygine::Stage(true)
+GameStage::GameStage(const oxygine::Vector2& size) : oxygine::Stage(true),
+   game_level_(new GameLevelActor({ size.x * kPixel, size.y * kPixel }))
 {
+   addChild(game_level_);
 	setSize(size);
 	CreateAndAddSquare();
 	CreateAndAddAllGround();
@@ -58,8 +58,7 @@ void GameStage::CreateAndAddSquare()
       }
    });
 
-	addChild(actor);
-   scroller_.Add(actor.get());
+   game_level_->addChild(actor);
 }
 
 void GameStage::CreateAndAddAllGround()
@@ -79,8 +78,7 @@ void GameStage::CreateAndAddAllGround()
 void GameStage::CreateAndAddGround(const PhysicalObject::Point& point)
 {
    spGroundActor groundActor = new GroundActor(point);
-   addChild(groundActor);
-   scroller_.Add(groundActor.get());
+   game_level_->AddAndExtend(groundActor);
 }
 
 void GameStage::CreateAndAddMenu()
@@ -106,24 +104,13 @@ void GameStage::CreateAndAddMenu()
       MoveEvent* move_event = dynamic_cast<MoveEvent*>(event);
       GameEngine::GetInstance().CheckGraySquareActorLocation(
          move_event->moved_object_, move_event->old_position_, move_event->new_position_);
-      ScrollIfNeeded(move_event->moved_object_->GetLocation());
+      game_level_->ScrollToShow(move_event->moved_object_->GetLocation());
    });
-   
-}
-
-void GameStage::ScrollIfNeeded(const PhysicalObject::Point& location_of_active_object)
-{
-   Distance distance_to_right_border = kPixel * getWidth() - location_of_active_object.x;
-   Distance distance_to_left_border = location_of_active_object.x;
-   Distance move_to_left = distance_to_right_border - kScrollBuffer;
-   Distance move_to_right = kScrollBuffer - distance_to_left_border;
-   if (move_to_left < 0 * kPixel) scroller_.MoveBy(move_to_left);
-   if (move_to_right > 0 * kPixel) scroller_.MoveBy(move_to_right);
 }
 
 bool GameStage::IsPaused()
 {
-	return pause_menu_->IsShown();
+   return pause_menu_->IsShown();
 }
 
 bool GameStage::IsEnded()

@@ -4,6 +4,7 @@
 
 #include "PhysicalObject.h"
 
+DECLARE_SMART(ActorBase, spActorBase);
 class ActorBase : public oxygine::ColorRectSprite, public PhysicalObject
 {
 public:
