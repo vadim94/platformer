@@ -32,7 +32,7 @@ oxygine::spTextField ButtonAlignerActor::CreateText(const std::string& text)
 	oxygine::TextStyle style = text_field->getStyle();
 	style.color = oxygine::Color::Black;
 	style.vAlign = oxygine::TextStyle::VALIGN_MIDDLE;
-	style.hAlign = oxygine::TextStyle::HALIGN_CENTER;
+	style.hAlign = oxygine::TextStyle::HALIGN_MIDDLE;
 	style.multiline = true;
 	style.fontSize = 20;
 	style.font = ResourceSingleton::GetRes().getResFont("comic_sans");
