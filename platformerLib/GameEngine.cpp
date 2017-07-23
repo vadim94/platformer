@@ -46,7 +46,8 @@ void GameEngine::CheckGraySquareActorLocation(PhysicalObject* actor,
 
 	Distance new_x(actor->GetLocation().x.Value());
 	Distance new_y(actor->GetLocation().y.Value());
-	bool is_touched = false;
+   bool is_touched_horizontally = false;
+   bool is_touched_vertically = false;
 
 	Distance actor_old_upper_bound = old_location.y;
 	Distance actor_new_upper_bound = new_location.y;
@@ -77,7 +78,7 @@ void GameEngine::CheckGraySquareActorLocation(PhysicalObject* actor,
 				(actor_left_bound < barrier_left_bound &&
 				actor_right_bound > barrier_right_bound)))
 			{
-				is_touched = true;
+            is_touched_vertically = true;
 				if (new_y < barrier_lower_bound)
 				{
 					new_y = barrier_lower_bound;
@@ -94,7 +95,7 @@ void GameEngine::CheckGraySquareActorLocation(PhysicalObject* actor,
 				(actor_left_bound < barrier_left_bound &&
 				actor_right_bound > barrier_right_bound)))
 			{
-				is_touched = true;
+            is_touched_vertically = true;
 				if (new_y > barrier_upper_bound - actor->GetSize().y)
 				{
 					new_y = barrier_upper_bound - actor->GetSize().y;
@@ -116,7 +117,7 @@ void GameEngine::CheckGraySquareActorLocation(PhysicalObject* actor,
 				(actor_new_upper_bound < barrier_upper_bound &&
 				actor_new_lower_bound > barrier_lower_bound)))
 			{
-				is_touched = true;
+            is_touched_horizontally = true;
 				if (new_x > (barrier_left_bound - actor->GetSize().x))
 				{
 					new_x = barrier_left_bound - actor->GetSize().x;
@@ -133,7 +134,7 @@ void GameEngine::CheckGraySquareActorLocation(PhysicalObject* actor,
 				(actor_new_upper_bound < barrier_upper_bound &&
 				actor_new_lower_bound > barrier_lower_bound)))
 			{
-				is_touched = true;
+            is_touched_horizontally = true;
 				if (new_x < barrier_right_bound)
 				{
 					new_x = barrier_right_bound;
@@ -143,14 +144,21 @@ void GameEngine::CheckGraySquareActorLocation(PhysicalObject* actor,
 		}
 	}
 
-	if (is_touched)
-	{
-		PhysicalObject::Point new_location(new_x, new_y);
-		actor->SetLocation(new_location);
-		actor->SetSpeed(kZeroSpeedVector);
-		actor->SetAcceleration(kZeroAccelerationVector);
-	}
-
+   if (is_touched_horizontally || is_touched_vertically)
+   {
+      PhysicalObject::Point new_location(new_x, new_y);
+      actor->SetLocation(new_location);
+   }
+   if (is_touched_horizontally)
+   {
+      actor->SetSpeed({ Speed(0), actor->GetSpeed().y });
+      actor->SetAcceleration({ Acceleration(0), actor->GetAcceleration().y });
+   }
+   if (is_touched_vertically)
+   {
+      actor->SetSpeed({ actor->GetSpeed().x, Speed(0) });
+      actor->SetAcceleration({ actor->GetAcceleration().x, Acceleration(0) });
+   }
 	return;
 }
 
