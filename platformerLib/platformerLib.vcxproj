@@ -127,7 +127,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>../../platformer-deps/oxygine-framework//oxygine/src;../../platformer-deps/SDL/include;../../platformer-deps/oxygine-framework//oxygine/third_party/win32/pthreads/include</AdditionalIncludeDirectories>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ProgramDataBaseFileName>$(ProjectName)$(Target).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
