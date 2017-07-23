@@ -78,6 +78,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>../../platformer-deps/oxygine-framework//oxygine/src;../../platformer-deps/SDL/include;../../platformer-deps/oxygine-framework//oxygine/third_party/win32/pthreads/include;../platformerLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ProgramDataBaseFileName>$(ProjectName)$(Target).pdb</ProgramDataBaseFileName>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
