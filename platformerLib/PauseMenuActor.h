@@ -14,19 +14,19 @@ DECLARE_SMART(PauseMenuActor, spPauseMenuActor);
 class PauseMenuActor : public oxygine::ColorRectSprite
 {
 public:
-	PauseMenuActor();
-	void Toggle();
-	bool IsShown() const;
+    PauseMenuActor();
+    void Toggle();
+    bool IsShown() const;
 
 private:
-	void Show();
-	void Hide();
-	void AddButtons();
-	void SetupMenuVisualParameters();
+    void Show();
+    void Hide();
+    void AddButtons();
+    void SetupMenuVisualParameters();
 
 private:
-	static const oxygine::Color kBackgroundColor;
+    static const oxygine::Color kBackgroundColor;
 
-	spButtonAlignerActor button_formatter_;
+    spButtonAlignerActor button_formatter_;
 };
 

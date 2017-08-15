@@ -7,16 +7,16 @@
 class ResourceSingleton
 {
 public:
-   static void Initialize();
-   static const oxygine::Resources& GetRes();
-   static void UnInitialize();
+    static void Initialize();
+    static const oxygine::Resources& GetRes();
+    static void UnInitialize();
 
 private:
-   ResourceSingleton() = default;
-   
+    ResourceSingleton() = default;
+    
 private:
-   static ResourceSingleton singleton;
+    static ResourceSingleton singleton;
 
-   std::unique_ptr<oxygine::Resources> res_;
+    std::unique_ptr<oxygine::Resources> res_;
 };
 
