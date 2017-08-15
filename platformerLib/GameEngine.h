@@ -6,17 +6,17 @@
 class GameEngine
 {
 public:
-	static GameEngine& GetInstance();
-	void RegistrateObject(PhysicalObject* obj);
-	void CheckGraySquareActorLocation(PhysicalObject* obj,
-									  const PhysicalObject::Point& old_location,
-									  const PhysicalObject::Point& new_location);
-	
-	void Reset();
+    static GameEngine& GetInstance();
+    void RegistrateObject(PhysicalObject* obj);
+    void CheckGraySquareActorLocation(PhysicalObject* obj,
+                                      const PhysicalObject::Point& old_location,
+                                      const PhysicalObject::Point& new_location);
+    
+    void Reset();
 
 private:
-	GameEngine();
+    GameEngine();
 
 private:
-	std::vector<PhysicalObject*> ground_actors_;
+    std::vector<PhysicalObject*> ground_actors_;
 };
